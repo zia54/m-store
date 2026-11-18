@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M Store | Ladies Luxury Mall & Unbranded Couture</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            mstore: {
+              dark: '#111115',
+              obsidian: '#1B1B22',
+              gold: '#C59B4B',
+              goldLight: '#E2C482',
+              ivory: '#FAF8F5',
+              sand: '#F3EFE8',
+              rose: '#B85D6F'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #111115;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-editorial {
+      font-family: 'Playfair Display', serif;
+    }
+    .gold-gradient {
+      background: linear-gradient(135deg, #C59B4B 0%, #E2C482 50%, #AE8335 100%);
+    }
+    .gold-text {
+      background: linear-gradient(135deg, #C59B4B 0%, #E2C482 55%, #AE8335 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-header {
+      background: rgba(250, 248, 245, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .product-card:hover .product-photo {
+      transform: scale(1.06);
+    }
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-panel {
+      animation: slideUpFade 0.35s ease-out forwards;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3EFE8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C59B4B;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-mstore-gold selection:text-white">
+
+  <!-- Toast Banner (Replaces alert()) -->
+  <div id="toast-banner" class="fixed bottom-5 right-5 z-[120] transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-mstore-dark text-white shadow-2xl border border-mstore-gold/40">
+      <i id="toast-icon" class="fa-solid fa-circle-check text-mstore-gold text-lg"></i>
+      <span id="toast-text" class="text-sm font-medium">Completed</span>
+    </div>
+  </div>
+
+  <!-- Top Announcement Ribbon -->
+  <div class="bg-mstore-dark text-mstore-ivory text-[11px] sm:text-xs py-2 px-4 border-b border-mstore-gold/25">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-mstore-gold animate-pulse"></span>
+        <span><strong>M Store Nationwide Delivery (All Pakistan)</strong> • Free Shipping over Rs. 5,000 • Promo: <strong class="text-mstore-goldLight">MSTORE10</strong> (10% OFF)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="openTrackOrderModal()" class="hover:text-mstore-gold transition-colors font-semibold flex items-center gap-1.5">
+          <i class="fa-solid fa-truck-fast text-mstore-gold"></i>
+          <span>Track Order</span>
+        </button>
+        <span class="text-stone-600">|</span>
+        <span class="hidden sm:inline text-stone-300"><i class="fa-brands fa-whatsapp text-mstore-gold mr-1"></i> Support: 0347-2310484</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sticky Header -->
+  <header class="sticky top-0 z-40 glass-header border-b border-stone-200/90 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between py-3 gap-3">
+        
+        <!-- M Store Brand Emblem -->
+        <a href="#" onclick="switchToStorefront(); return false;" class="flex items-center gap-3 group shrink-0">
+          <div class="w-11 h-11 rounded-2xl bg-mstore-dark border border-mstore-gold flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            <span class="font-editorial text-2xl font-extrabold gold-text">M</span>
+          </div>
+          <div>
+            <span class="font-editorial text-xl sm:text-2xl font-extrabold tracking-wide text-mstore-dark block leading-none">M Store</span>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-mstore-gold font-bold">Ladies Luxury Mall</span>
+          </div>
+        </a>
+
+        <!-- Desktop Search Input -->
+        <div id="desktop-search-box" class="hidden md:flex flex-1 max-w-md mx-4">
+          <div class="relative w-full">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+            <input
+              type="text"
+              id="search-input-desktop"
+              oninput="onSearchCatalog(this.value)"
+              placeholder="Search lawn suits, lipsticks, heels, bags, perfumes..."
+              class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-stone-200 text-sm focus:outline-none focus:border-mstore-gold transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Right Navigation Controls -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Host Admin & Supply Chain Button -->
+          <button
+            id="btn-host-admin"
+            onclick="handleHostAdminAccess()"
+            class="px-3.5 sm:px-4 py-2.5 rounded-2xl text-xs font-extrabold transition-all bg-stone-900 text-mstore-goldLight border border-mstore-gold/40 hover:bg-mstore-gold hover:text-mstore-dark shadow-sm flex items-center gap-2"
+          >
+            <i class="fa-solid fa-shield-halved"></i>
+            <span class="hidden sm:inline">Host Admin & Supply Chain</span>
+            <span class="sm:hidden">Host ERP</span>
+            <span id="header-order-count" class="px-1.5 py-0.5 rounded-full bg-mstore-gold text-mstore-dark text-[10px] font-extrabold">0</span>
+          </button>
+
+          <!-- Return to Storefront Button (Visible only when inside Host Admin) -->
+          <button
+            id="btn-back-store"
+            onclick="switchToStorefront()"
+            class="hidden px-3.5 sm:px-4 py-2.5 rounded-2xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-1.5"
+          >
+            <i class="fa-solid fa-store"></i>
+            <span>Live Storefront</span>
+          </button>
+
+          <!-- Wishlist Trigger -->
+          <button onclick="openWishlistModal()" aria-label="Wishlist" class="relative p-2.5 rounded-2xl bg-white border border-stone-200 hover:border-mstore-gold text-mstore-dark transition-all">
+            <i class="fa-regular fa-heart text-lg"></i>
+            <span id="wishlist-count" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-mstore-rose text-white text-[10px] font-bold flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Shopping Bag Trigger -->
+          <button onclick="toggleBagDrawer(true)" aria-label="Shopping Bag" class="relative p-2.5 px-3.5 rounded-2xl bg-mstore-dark text-white hover:bg-mstore-obsidian transition-all flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-bag-shopping text-mstore-gold"></i>
+            <span class="hidden sm:inline text-xs font-bold">Bag</span>
+            <span id="bag-count" class="px-1.5 py-0.5 rounded-full bg-mstore-gold text-mstore-dark text-[11px] font-extrabold">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Search Input -->
+      <div id="mobile-search-box" class="md:hidden pb-3">
+        <div class="relative w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+          <input
+            type="text"
+            oninput="onSearchCatalog(this.value)"
+            placeholder="Search ladies suits, cosmetics, footwear, bags..."
+            class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-stone-200 text-xs focus:outline-none focus:border-mstore-gold"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 1: CUSTOMER STOREFRONT (M STORE LADIES LUXURY MALL)           -->
+  <!-- ===================================================================== -->
+  <main id="storefront-section" class="pb-20">
+    
+    <!-- Editorial Hero Section -->
+    <section class="relative overflow-hidden bg-mstore-dark text-white">
+      <div class="absolute inset-0 opacity-30">
+        <img
+          src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80"
+          onerror="this.src='https://placehold.co/1600x700/111115/C59B4B?text=M+STORE'"
+          alt="M Store Ladies Luxury Mall"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-r from-mstore-dark via-mstore-dark/85 to-transparent"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 relative z-10">
+        <div class="max-w-2xl space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mstore-gold/20 border border-mstore-gold/40 text-mstore-goldLight text-xs font-bold tracking-wider uppercase">
+            <i class="fa-solid fa-crown"></i>
+            <span>M Store — Ladies Luxury Mall & Unbranded Couture</span>
+          </div>
+
+          <h1 class="font-editorial text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+            Every Feminine Essential, <span class="gold-text italic">Crafted & Customized</span>
+          </h1>
+
+          <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+            Welcome to <strong>M Store</strong> — your complete destination for Unstitched & Stitched Designer Suits, Halal Cosmetics, Glass-Skin Skincare, Designer Handbags, Bridal Footwear, Kundan Jewelry, Signature Perfumes & Hijab Accessories across Pakistan.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#mall-catalog" class="px-6 py-3.5 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-sm shadow-lg hover:scale-[1.02] transition-transform flex items-center gap-2">
+              <span>Shop Complete Mall</span>
+              <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <button onclick="openTrackOrderModal()" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-sm backdrop-blur-xs transition-all flex items-center gap-2">
+              <i class="fa-solid fa-location-crosshairs text-mstore-gold"></i>
+              <span>Track Order Status</span>
+            </button>
+          </div>
+
+          <!-- Store Highlights -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/15 text-xs">
+            <div>
+              <div class="font-bold text-mstore-goldLight text-sm">8 Luxury Departments</div>
+              <div class="text-stone-400">Complete Ladies Range</div>
+            </div>
+            <div>
+              <div class="font-bold text-mstore-goldLight text-sm">Bespoke Options</div>
+              <div class="text-stone-400">Custom Fit, Shade & Notes</div>
+            </div>
+            <div>
+              <div class="font-bold text-mstore-goldLight text-sm">All Pakistan COD</div>
+              <div class="text-stone-400">Fast Nationwide Dispatch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog & 8 Category Filters -->
+    <section id="mall-catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      
+      <div class="mb-6">
+        <span class="text-xs font-extrabold uppercase tracking-[0.22em] text-mstore-gold">8 Complete Ladies & Girls Departments</span>
+        <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-mstore-dark mt-1">Explore M Store Collections</h2>
+      </div>
+
+      <!-- Horizontal / Wrapped Category Filter Bar -->
+      <div class="flex flex-wrap gap-2 mb-6" id="category-pill-bar">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Results & Sort Strip -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b border-stone-200 text-xs sm:text-sm">
+        <div class="text-stone-600">
+          Displaying <strong id="visible-product-count" class="text-mstore-dark">0</strong> luxury items • Click <strong>"View Details & Customize"</strong> on any item for full description & custom tailoring/shade choices.
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="catalog-sort" class="text-stone-500 font-medium">Sort:</label>
+          <select id="catalog-sort" onchange="renderStorefrontCatalog()" class="px-3 py-1.5 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold focus:outline-none focus:border-mstore-gold">
+            <option value="default">Curated Order</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="mall-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Populated dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 2: HOST ADMIN ERP, PRODUCT CONTROL, CASH LEDGER & SUPPLY CHAIN -->
+  <!-- ===================================================================== -->
+  <section id="host-admin-section" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
+    
+    <!-- Host Dashboard Header -->
+    <div class="bg-mstore-dark text-white rounded-3xl p-6 sm:p-8 mb-8 border border-mstore-gold/30 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mstore-gold/20 text-mstore-goldLight text-xs font-bold mb-2">
+          <i class="fa-solid fa-crown"></i>
+          <span>M Store Host Command Center • Authenticated Access</span>
+        </div>
+        <h1 class="font-editorial text-2xl sm:text-3xl font-bold">Catalog Control, Order Details, Cash Ledger & Supply Chain</h1>
+        <p class="text-stone-400 text-xs sm:text-sm mt-1">
+          Full host authority: Add new ladies products, edit prices/descriptions, remove items from the storefront, manage customer orders, track COD cash, and restock warehouse inventory.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2.5 shrink-0">
+        <button onclick="switchToStorefront()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border border-white/20 transition-all">
+          <i class="fa-solid fa-eye mr-1.5 text-mstore-gold"></i> View Customer Store
+        </button>
+        <button onclick="lockHostSession()" class="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-200 hover:text-mstore-dark text-xs font-bold border border-amber-500/40 transition-all">
+          <i class="fa-solid fa-lock mr-1.5"></i> Lock Host Panel
+        </button>
+        <button onclick="resetMStoreDatabase()" class="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-200 hover:text-white text-xs font-bold border border-rose-500/40 transition-all">
+          <i class="fa-solid fa-rotate-left mr-1.5"></i> Reset Demo Data
+        </button>
+      </div>
+    </div>
+
+    <!-- Real-Time Financial & Operational KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-3xl p-5 border border-stone-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase text-stone-500">Gross Store Revenue</span>
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-coins"></i></div>
+        </div>
+        <div id="host-kpi-revenue" class="text-2xl font-extrabold text-mstore-dark mt-2">Rs. 0</div>
+        <div id="host-kpi-collected" class="text-xs text-emerald-600 font-semibold mt-1">Rs. 0 Cash Collected</div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-5 border border-stone-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase text-stone-500">Pending COD Cash</span>
+          <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        </div>
+        <div id="host-kpi-pending-cod" class="text-2xl font-extrabold text-mstore-dark mt-2">Rs. 0</div>
+        <div class="text-xs text-amber-600 font-semibold mt-1">In-transit / Awaiting COD</div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-5 border border-stone-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase text-stone-500">Net Profit & Margin</span>
+          <div class="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-600 flex items-center justify-center"><i class="fa-solid fa-chart-line"></i></div>
+        </div>
+        <div id="host-kpi-profit" class="text-2xl font-extrabold text-mstore-dark mt-2">Rs. 0</div>
+        <div id="host-kpi-margin-pct" class="text-xs text-purple-600 font-semibold mt-1">0% Net Margin</div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-5 border border-stone-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase text-stone-500">Live Mall Inventory</span>
+          <div class="w-9 h-9 rounded-xl bg-blue-500/15 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-boxes-stacked"></i></div>
+        </div>
+        <div id="host-kpi-stock" class="text-2xl font-extrabold text-mstore-dark mt-2">0 Units</div>
+        <div id="host-kpi-skus" class="text-xs text-blue-600 font-semibold mt-1">0 Active Products</div>
+      </div>
+    </div>
+
+    <!-- 4 Host ERP Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-stone-200 pb-4">
+      <button onclick="switchHostTab('catalog')" id="htab-btn-catalog" class="host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-mstore-dark text-white shadow transition-all flex items-center gap-2">
+        <i class="fa-solid fa-wand-magic-sparkles text-mstore-gold"></i>
+        <span>1. Catalog Control (Add / Edit / Remove Products)</span>
+      </button>
+      <button onclick="switchHostTab('orders')" id="htab-btn-orders" class="host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white border border-stone-200 text-stone-700 hover:border-mstore-gold transition-all flex items-center gap-2">
+        <i class="fa-solid fa-clipboard-check text-blue-600"></i>
+        <span>2. Order Details & Fulfillment</span>
+      </button>
+      <button onclick="switchHostTab('cash')" id="htab-btn-cash" class="host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white border border-stone-200 text-stone-700 hover:border-mstore-gold transition-all flex items-center gap-2">
+        <i class="fa-solid fa-wallet text-emerald-600"></i>
+        <span>3. Cash & COD Financial Ledger</span>
+      </button>
+      <button onclick="switchHostTab('supply')" id="htab-btn-supply" class="host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white border border-stone-200 text-stone-700 hover:border-mstore-gold transition-all flex items-center gap-2">
+        <i class="fa-solid fa-truck-ramp-box text-amber-600"></i>
+        <span>4. Supply Chain & Warehouse Restock</span>
+      </button>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- HOST TAB 1: CATALOG CONTROL (ADD / EDIT / REMOVE PRODUCTS)        -->
+    <!-- ================================================================= -->
+    <div id="host-tab-catalog" class="animate-panel">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Form: Add New or Edit Product -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-stone-200 shadow-sm h-fit">
+          <div class="flex items-center justify-between mb-4">
+            <h2 id="host-form-heading" class="text-lg font-extrabold text-mstore-dark">Add New Product to M Store</h2>
+            <button type="button" onclick="clearHostProductForm()" class="text-xs font-bold text-mstore-gold hover:underline">Reset Form</button>
+          </div>
+
+          <form id="host-product-form" onsubmit="handleSaveProduct(event)" class="space-y-3 text-xs sm:text-sm">
+            <input type="hidden" id="hf-id" />
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Product Title *</label>
+              <input type="text" id="hf-name" required placeholder="e.g., Gul-e-Rana Chiffon Embroidered 3-Pc Suit" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-stone-700 mb-1">Department / Category *</label>
+                <select id="hf-category" class="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold">
+                  <option value="Ladies Suits & Pret">Ladies Suits & Pret</option>
+                  <option value="Makeup & Cosmetics">Makeup & Cosmetics</option>
+                  <option value="Skincare & Glow">Skincare & Glow</option>
+                  <option value="Handbags & Clutches">Handbags & Clutches</option>
+                  <option value="Footwear & Heels">Footwear & Heels</option>
+                  <option value="Jewelry & Bangles">Jewelry & Bangles</option>
+                  <option value="Perfumes & Mists">Perfumes & Mists</option>
+                  <option value="Hair & Hijab Accessories">Hair & Hijab Accessories</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-bold text-stone-700 mb-1">Supplier / Mill *</label>
+                <input type="text" id="hf-supplier" required placeholder="e.g., Faisalabad Looms" class="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2.5">
+              <div>
+                <label class="block font-bold text-stone-700 mb-1">Selling Price (Rs) *</label>
+                <input type="number" id="hf-price" required min="100" placeholder="4800" class="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+              </div>
+              <div>
+                <label class="block font-bold text-stone-700 mb-1">Unit Cost (Rs) *</label>
+                <input type="number" id="hf-cost" required min="50" placeholder="2700" class="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+              </div>
+              <div>
+                <label class="block font-bold text-stone-700 mb-1">Stock Qty *</label>
+                <input type="number" id="hf-stock" required min="0" placeholder="30" class="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Customization Label (e.g., Select Size & Shade)</label>
+              <input type="text" id="hf-custom-label" placeholder="Select Size, Shade or Fit" class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Sizes / Shades / Variants (comma-separated) *</label>
+              <input type="text" id="hf-variants" required placeholder="Unstitched, S, M, L, XL — or Ruby Red, Nude Pink" class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Product Image URL (or 1-click preset) *</label>
+              <input type="url" id="hf-image" required placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+              <div class="flex flex-wrap gap-1.5 mt-1.5">
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Suit</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Makeup</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Skincare</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Bag</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Heels</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Jewelry</button>
+                <button type="button" onclick="applyImagePreset('https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80')" class="px-2 py-1 rounded-lg bg-stone-100 hover:bg-mstore-gold/25 text-[11px] font-semibold">Perfume</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Material / Formula / Fabric Specifications *</label>
+              <input type="text" id="hf-specs" required placeholder="e.g., Pure Swiss Lawn Shirt, Bemberg Chiffon Dupatta, Dyed Cambric Trouser" class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 mb-1">Detailed Product Description *</label>
+              <textarea id="hf-desc" rows="2" required placeholder="Complete description shown inside the customer Product Detail & Customization modal..." class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-sm shadow-md hover:scale-[1.01] transition-transform">
+              <i class="fa-solid fa-plus-circle mr-1.5"></i> Save & Publish to M Store
+            </button>
+          </form>
+        </div>
+
+        <!-- Right List: Manage / Edit / Remove Any Storefront Product -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-lg font-extrabold text-mstore-dark">Active M Store Catalog (<span id="host-catalog-total">0</span> Products)</h2>
+              <p class="text-xs text-stone-500">As Host, you can edit details or click <strong>"Remove from Store"</strong> to delete any item immediately.</p>
+            </div>
+            <select id="host-cat-filter" onchange="renderHostCatalogList()" class="px-3 py-2 rounded-xl bg-stone-100 border border-stone-200 text-xs font-bold">
+              <option value="All">All 8 Departments</option>
+              <option value="Ladies Suits & Pret">Ladies Suits & Pret</option>
+              <option value="Makeup & Cosmetics">Makeup & Cosmetics</option>
+              <option value="Skincare & Glow">Skincare & Glow</option>
+              <option value="Handbags & Clutches">Handbags & Clutches</option>
+              <option value="Footwear & Heels">Footwear & Heels</option>
+              <option value="Jewelry & Bangles">Jewelry & Bangles</option>
+              <option value="Perfumes & Mists">Perfumes & Mists</option>
+              <option value="Hair & Hijab Accessories">Hair & Hijab Accessories</option>
+            </select>
+          </div>
+
+          <div id="host-catalog-list" class="space-y-3 max-h-[820px] overflow-y-auto pr-1">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- HOST TAB 2: ORDER DETAILS & FULFILLMENT                           -->
+    <!-- ================================================================= -->
+    <div id="host-tab-orders" class="hidden animate-panel">
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+          <div>
+            <h2 class="text-xl font-extrabold text-mstore-dark">Customer Orders & Customization Details</h2>
+            <p class="text-xs text-stone-500">Review buyer address, custom tailoring/shade notes, update delivery status, and assign Pakistani couriers.</p>
+          </div>
+          <select id="host-order-filter" onchange="renderHostOrdersTable()" class="px-3.5 py-2 rounded-xl bg-stone-100 border border-stone-200 text-xs font-bold">
+            <option value="All">All Orders</option>
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Dispatched">Dispatched</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b-2 border-stone-200 text-stone-500 uppercase text-[11px]">
+                <th class="py-3 px-3">Order ID & Date</th>
+                <th class="py-3 px-3">Customer & City</th>
+                <th class="py-3 px-3">Items & Custom Specs</th>
+                <th class="py-3 px-3">Total (PKR)</th>
+                <th class="py-3 px-3">Payment & Cash</th>
+                <th class="py-3 px-3">Fulfillment</th>
+                <th class="py-3 px-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="host-orders-tbody" class="divide-y divide-stone-100">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- HOST TAB 3: CASH & COD FINANCIAL LEDGER                           -->
+    <!-- ================================================================= -->
+    <div id="host-tab-cash" class="hidden animate-panel space-y-6">
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+          <div>
+            <h2 class="text-xl font-extrabold text-mstore-dark">M Store Cash, COD Receivables & Net Profit Ledger</h2>
+            <p class="text-xs text-stone-500">Track collected cash vs. pending Cash-on-Delivery (COD) parcels, supplier COGS cost, and net profit per order.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b-2 border-stone-200 text-stone-500 uppercase text-[11px]">
+                <th class="py-3 px-3">Order ID & Date</th>
+                <th class="py-3 px-3">Customer</th>
+                <th class="py-3 px-3">Payment Channel</th>
+                <th class="py-3 px-3">Sale Amount</th>
+                <th class="py-3 px-3">Supplier COGS</th>
+                <th class="py-3 px-3">Net Profit</th>
+                <th class="py-3 px-3">Cash Status</th>
+                <th class="py-3 px-3 text-right">Ledger Action</th>
+              </tr>
+            </thead>
+            <tbody id="host-cash-tbody" class="divide-y divide-stone-100">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- HOST TAB 4: SUPPLY CHAIN & WAREHOUSE RESTOCK                      -->
+    <!-- ================================================================= -->
+    <div id="host-tab-supply" class="hidden animate-panel space-y-6">
+      <!-- 4-Stage Supply Chain Flow -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+        <h2 class="text-lg font-extrabold text-mstore-dark mb-4">M Store End-to-End Supply Chain Architecture</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
+            <span class="text-[11px] font-extrabold uppercase text-mstore-gold">01 • Direct Sourcing</span>
+            <div class="font-bold text-sm text-mstore-dark mt-1">Textile Mills & Beauty Labs</div>
+            <p class="text-xs text-stone-500 mt-1">Faisalabad Looms, Lahore Derma Labs, Karachi Leather & Multan Artisans.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
+            <span class="text-[11px] font-extrabold uppercase text-blue-600">02 • Customization QC</span>
+            <div class="font-bold text-sm text-mstore-dark mt-1">Tailoring & Shade Check</div>
+            <p class="text-xs text-stone-500 mt-1">Custom stitching measurements, shade verification & luxury gift box packing.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
+            <span class="text-[11px] font-extrabold uppercase text-emerald-600">03 • Central Warehouse</span>
+            <div id="supply-warehouse-total" class="font-bold text-sm text-mstore-dark mt-1">0 Units In Stock</div>
+            <p class="text-xs text-stone-500 mt-1">Live inventory auto-deducted on customer orders & replenished via POs.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
+            <span class="text-[11px] font-extrabold uppercase text-purple-600">04 • Nationwide Delivery</span>
+            <div class="font-bold text-sm text-mstore-dark mt-1">TCS / Leopards / PostEx</div>
+            <p class="text-xs text-stone-500 mt-1">Doorstep COD & prepaid courier fulfillment across All Pakistan.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKU Inventory & PO Restock Table -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+        <h2 class="text-lg font-extrabold text-mstore-dark mb-1">Warehouse Stock, Supplier Directory & Purchase Orders</h2>
+        <p class="text-xs text-stone-500 mb-4">Click <strong>"+25 PO Restock"</strong> on any SKU to replenish stock from its supplier.</p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b-2 border-stone-200 text-stone-500 uppercase text-[11px]">
+                <th class="py-3 px-3">SKU & Product</th>
+                <th class="py-3 px-3">Supplier / Source</th>
+                <th class="py-3 px-3">Unit Cost vs Retail</th>
+                <th class="py-3 px-3">Unit Margin</th>
+                <th class="py-3 px-3">Warehouse Stock</th>
+                <th class="py-3 px-3 text-right">Purchase Order</th>
+              </tr>
+            </thead>
+            <tbody id="host-supply-tbody" class="divide-y divide-stone-100">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Supply Chain Movement Audit Log -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-sm">
+        <h3 class="text-base font-extrabold text-mstore-dark mb-3"><i class="fa-solid fa-clock-rotate-left text-mstore-gold mr-2"></i>Live Supply Chain & Stock Movement Log</h3>
+        <div id="supply-audit-list" class="space-y-2 max-h-56 overflow-y-auto text-xs">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL A: SEPARATE PRODUCT DETAIL & CUSTOMIZATION MODAL                -->
+  <!-- ===================================================================== -->
+  <div id="product-detail-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl border border-stone-200 animate-panel my-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12">
+        <!-- High-Res Image Gallery Preview -->
+        <div class="md:col-span-5 bg-stone-100 relative min-h-[290px] flex flex-col justify-between">
+          <img id="pd-img" src="" alt="Product Detail" class="w-full h-full object-cover" />
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+            <span id="pd-sku" class="px-2.5 py-1 rounded-lg bg-mstore-dark/90 text-mstore-goldLight text-[10px] font-bold"></span>
+            <span id="pd-stock-badge" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-bold"></span>
+          </div>
+        </div>
+
+        <!-- Complete Description, Specs & Customization Form -->
+        <div class="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4 max-h-[90vh] overflow-y-auto">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span id="pd-category" class="text-[11px] font-extrabold uppercase tracking-widest text-mstore-gold"></span>
+                <h3 id="pd-title" class="font-editorial text-2xl sm:text-3xl font-bold text-mstore-dark mt-0.5"></h3>
+              </div>
+              <button onclick="closeProductDetailModal()" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600 shrink-0">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <div class="flex items-baseline gap-3 mt-2">
+              <span id="pd-price" class="text-2xl font-extrabold text-mstore-dark"></span>
+              <span class="text-xs text-stone-500">Inclusive of Luxury M Store Packaging</span>
+            </div>
+
+            <!-- Dedicated Description & Material Specs Box -->
+            <div class="mt-4 p-4 rounded-2xl bg-mstore-ivory border border-stone-200/90 space-y-2">
+              <div class="text-xs font-extrabold uppercase tracking-wider text-stone-700">Product Description & Details</div>
+              <p id="pd-full-desc" class="text-xs sm:text-sm text-stone-600 leading-relaxed"></p>
+              <div class="pt-2 border-t border-stone-200 text-xs text-stone-700">
+                <strong><i class="fa-solid fa-layer-group text-mstore-gold mr-1"></i> Material / Specs:</strong>
+                <span id="pd-specs"></span>
+              </div>
+            </div>
+
+            <!-- Interactive Variant / Size / Shade Selector -->
+            <div class="mt-4">
+              <label id="pd-custom-label" class="block text-xs font-extrabold uppercase text-stone-700 mb-2">1. Choose Size / Shade / Variant:</label>
+              <div id="pd-variant-pills" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Custom Tailoring / Engraving / Gift Note -->
+            <div class="mt-4">
+              <label for="pd-custom-note" class="block text-xs font-extrabold uppercase text-stone-700 mb-1">2. Custom Stitching, Shade Match, or Gift Note (Optional):</label>
+              <input
+                type="text"
+                id="pd-custom-note"
+                placeholder="e.g., Shirt length 42 in, Medium trouser, or Add Birthday Card..."
+                class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm focus:outline-none focus:border-mstore-gold"
+              />
+            </div>
+          </div>
+
+          <!-- Quantity & Dual Action Buttons (Add to Bag + Direct Order Now) -->
+          <div class="pt-4 border-t border-stone-200 flex flex-wrap items-center gap-3">
+            <div class="flex items-center border border-stone-300 rounded-2xl overflow-hidden bg-stone-50">
+              <button type="button" onclick="changeDetailQty(-1)" class="px-3.5 py-2.5 hover:bg-stone-200 font-bold">-</button>
+              <span id="pd-qty" class="px-4 py-2 text-sm font-extrabold">1</span>
+              <button type="button" onclick="changeDetailQty(1)" class="px-3.5 py-2.5 hover:bg-stone-200 font-bold">+</button>
+            </div>
+
+            <button onclick="addDetailProductToBag(false)" class="flex-1 py-3 px-4 rounded-2xl bg-mstore-dark hover:bg-mstore-obsidian text-white font-bold text-xs sm:text-sm shadow transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-bag-shopping text-mstore-gold"></i>
+              <span>Add to Bag</span>
+            </button>
+
+            <button onclick="addDetailProductToBag(true)" class="flex-1 py-3 px-4 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-xs sm:text-sm shadow-lg hover:scale-[1.01] transition-transform flex items-center justify-center gap-2">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Order Now</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- DRAWER B: SHOPPING BAG DRAWER                                         -->
+  <!-- ===================================================================== -->
+  <div id="bag-drawer" class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex justify-end">
+    <div class="bg-white w-full max-w-md h-full flex flex-col justify-between shadow-2xl animate-panel">
+      <div class="p-5 border-b border-stone-200 flex items-center justify-between bg-mstore-dark text-white">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-bag-shopping text-mstore-gold text-lg"></i>
+          <h3 class="font-editorial text-xl font-bold">M Store Shopping Bag</h3>
+        </div>
+        <button onclick="toggleBagDrawer(false)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="bag-items-list" class="flex-1 overflow-y-auto p-5 space-y-3.5">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="p-5 border-t border-stone-200 bg-mstore-ivory space-y-3">
+        <div class="flex gap-2">
+          <input type="text" id="bag-promo-input" placeholder="Promo code (Try: MSTORE10)" class="flex-1 px-3.5 py-2 rounded-xl bg-white border border-stone-300 text-xs font-bold uppercase focus:outline-none focus:border-mstore-gold" />
+          <button onclick="applyBagPromo()" class="px-4 py-2 rounded-xl bg-mstore-dark text-white text-xs font-bold hover:bg-mstore-obsidian">Apply</button>
+        </div>
+
+        <div class="space-y-1 text-xs sm:text-sm">
+          <div class="flex justify-between text-stone-600">
+            <span>Subtotal</span>
+            <span id="bag-subtotal" class="font-bold">Rs. 0</span>
+          </div>
+          <div id="bag-discount-line" class="hidden flex justify-between text-emerald-600 font-semibold">
+            <span>MSTORE10 Discount (10%)</span>
+            <span id="bag-discount">-Rs. 0</span>
+          </div>
+          <div class="flex justify-between text-stone-600">
+            <span>All-Pakistan Delivery</span>
+            <span id="bag-shipping" class="font-bold">Rs. 250</span>
+          </div>
+          <div class="flex justify-between text-base font-extrabold text-mstore-dark pt-2 border-t border-stone-200">
+            <span>Total Payable</span>
+            <span id="bag-total">Rs. 0</span>
+          </div>
+        </div>
+
+        <button id="bag-checkout-btn" onclick="openCheckoutModal()" class="w-full py-3.5 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-sm shadow-lg hover:scale-[1.01] transition-transform flex items-center justify-center gap-2">
+          <span>Proceed to All-Pakistan Checkout</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL C: ALL-PAKISTAN CHECKOUT MODAL                                  -->
+  <!-- ===================================================================== -->
+  <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 animate-panel my-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-mstore-gold">M Store Nationwide Express</span>
+          <h3 class="font-editorial text-2xl font-bold text-mstore-dark">Complete Your Order</h3>
+        </div>
+        <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitMStoreOrder(event)" class="space-y-4 mt-5 text-xs sm:text-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-stone-700 mb-1">Full Name *</label>
+            <input type="text" id="co-name" required placeholder="e.g., Ayesha Noor" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+          </div>
+          <div>
+            <label class="block font-bold text-stone-700 mb-1">Mobile / WhatsApp *</label>
+            <input type="tel" id="co-phone" required placeholder="0300-1234567" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Delivery City (All Pakistan) *</label>
+          <select id="co-city" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold">
+            <option value="Lahore">Lahore</option>
+            <option value="Karachi">Karachi</option>
+            <option value="Islamabad / Rawalpindi">Islamabad / Rawalpindi</option>
+            <option value="Faisalabad">Faisalabad</option>
+            <option value="Jhang">Jhang</option>
+            <option value="Multan">Multan</option>
+            <option value="Sialkot / Gujranwala">Sialkot / Gujranwala</option>
+            <option value="Peshawar / Quetta">Peshawar / Quetta</option>
+            <option value="Other City (All Pakistan)">Other City (All Pakistan)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Complete Delivery Address *</label>
+          <textarea id="co-address" rows="2" required placeholder="House #, Street, Sector / Block, Landmark..." class="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 focus:outline-none focus:border-mstore-gold"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1.5">Select Payment Method *</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="co-payment" value="Cash on Delivery (COD)" checked class="peer sr-only" />
+              <div class="p-2.5 rounded-xl border border-stone-200 peer-checked:border-mstore-gold peer-checked:bg-mstore-gold/10 text-center font-bold text-xs">
+                <i class="fa-solid fa-money-bill-wave block text-emerald-600 text-base mb-1"></i>
+                COD
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="co-payment" value="JazzCash / EasyPaisa" class="peer sr-only" />
+              <div class="p-2.5 rounded-xl border border-stone-200 peer-checked:border-mstore-gold peer-checked:bg-mstore-gold/10 text-center font-bold text-xs">
+                <i class="fa-solid fa-mobile-screen-button block text-rose-600 text-base mb-1"></i>
+                JazzCash
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="co-payment" value="Online Bank Transfer" class="peer sr-only" />
+              <div class="p-2.5 rounded-xl border border-stone-200 peer-checked:border-mstore-gold peer-checked:bg-mstore-gold/10 text-center font-bold text-xs">
+                <i class="fa-solid fa-building-columns block text-blue-600 text-base mb-1"></i>
+                Bank Pay
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-mstore-sand flex items-center justify-between font-extrabold text-sm">
+          <span>Total Amount Payable:</span>
+          <span id="co-final-total" class="text-lg text-mstore-dark">Rs. 0</span>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-sm shadow-lg hover:scale-[1.01] transition-transform">
+          <i class="fa-solid fa-circle-check mr-1.5"></i> Confirm & Place M Store Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL D: LIVE CUSTOMER ORDER TRACKER                                  -->
+  <!-- ===================================================================== -->
+  <div id="track-order-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 animate-panel my-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-mstore-gold">M Store Live Dispatch Tracker</span>
+          <h3 class="font-editorial text-2xl font-bold text-mstore-dark">Track Your Order</h3>
+        </div>
+        <button onclick="closeTrackOrderModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <div class="flex gap-2">
+          <input type="text" id="track-id-input" placeholder="Enter Order ID (e.g., MS-2026-1001)" class="flex-1 px-4 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm font-bold uppercase focus:outline-none focus:border-mstore-gold" />
+          <button onclick="runOrderTrackingLookup()" class="px-5 py-2.5 rounded-xl bg-mstore-dark text-white text-xs sm:text-sm font-bold hover:bg-mstore-obsidian">Track</button>
+        </div>
+
+        <div id="track-output-box" class="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs sm:text-sm">
+          <p class="text-stone-500">Enter your M Store Order ID above (e.g., <strong>MS-2026-1001</strong>) to check live status, courier partner, and customized items.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL E: HOST ACCESS PASSCODE MODAL                                   -->
+  <!-- ===================================================================== -->
+  <div id="host-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-mstore-gold/40 animate-panel text-center space-y-4">
+      <div class="w-14 h-14 rounded-2xl bg-mstore-dark text-mstore-gold mx-auto flex items-center justify-center text-2xl shadow-lg">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <span class="text-[11px] font-extrabold uppercase tracking-widest text-mstore-gold">M Store Owner & Host Control</span>
+        <h3 class="font-editorial text-2xl font-bold text-mstore-dark mt-1">Unlock Host Admin & ERP</h3>
+        <p class="text-xs text-stone-500 mt-1">Enter Host Passcode to add/remove store products, view customer order details, manage Cash/COD ledger & supply chain.</p>
+      </div>
+
+      <form onsubmit="verifyHostPasscode(event)" class="space-y-3 pt-2">
+        <input
+          type="password"
+          id="host-passcode-input"
+          value="7860"
+          required
+          placeholder="Enter Host Passcode (Default: 7860)"
+          class="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-300 text-center text-lg font-extrabold tracking-[0.3em] focus:outline-none focus:border-mstore-gold"
+        />
+        <div class="text-[11px] text-stone-400">Default Host Passcode: <strong class="text-mstore-dark">7860</strong></div>
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeHostLoginModal()" class="flex-1 py-3 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs">Cancel</button>
+          <button type="submit" class="flex-1 py-3 rounded-2xl gold-gradient text-mstore-dark font-extrabold text-xs shadow-md">Unlock Host Panel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL F: HOST ORDER DETAILS & FULFILLMENT INSPECTOR                   -->
+  <!-- ===================================================================== -->
+  <div id="host-order-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-stone-200 animate-panel my-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-mstore-gold">M Store Order Details & Dispatch</span>
+          <h3 id="hom-title" class="font-editorial text-2xl font-bold text-mstore-dark">Order #MS-2026-1001</h3>
+        </div>
+        <button onclick="closeHostOrderModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="hom-content" class="mt-4 space-y-4 text-xs sm:text-sm"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL G: WISHLIST MODAL                                               -->
+  <!-- ===================================================================== -->
+  <div id="wishlist-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 animate-panel">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-200">
+        <h3 class="font-editorial text-xl font-bold text-mstore-dark"><i class="fa-solid fa-heart text-mstore-rose mr-2"></i>Saved M Store Wishlist</h3>
+        <button onclick="closeWishlistModal()" class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="wishlist-body" class="mt-4 space-y-3 max-h-80 overflow-y-auto text-xs sm:text-sm"></div>
+    </div>
+  </div>
+
+  <!-- Luxury M Store Footer -->
+  <footer class="bg-mstore-dark text-stone-300 border-t border-mstore-gold/25">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/10">
+        <div>
+          <div class="font-editorial text-2xl font-extrabold gold-text">M Store</div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            M Store — Ladies Luxury Mall & Unbranded Couture. Complete feminine apparel, cosmetics, skincare, handbags, footwear, jewelry, perfumes, and hijab accessories delivered across All Pakistan.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-white mb-3">8 Ladies Departments</h4>
+          <div class="grid grid-cols-2 gap-1.5 text-xs text-stone-400">
+            <button onclick="selectCategoryFilter('Ladies Suits & Pret')" class="text-left hover:text-mstore-gold">Ladies Suits & Pret</button>
+            <button onclick="selectCategoryFilter('Makeup & Cosmetics')" class="text-left hover:text-mstore-gold">Makeup & Cosmetics</button>
+            <button onclick="selectCategoryFilter('Skincare & Glow')" class="text-left hover:text-mstore-gold">Skincare & Glow</button>
+            <button onclick="selectCategoryFilter('Handbags & Clutches')" class="text-left hover:text-mstore-gold">Handbags & Clutches</button>
+            <button onclick="selectCategoryFilter('Footwear & Heels')" class="text-left hover:text-mstore-gold">Footwear & Heels</button>
+            <button onclick="selectCategoryFilter('Jewelry & Bangles')" class="text-left hover:text-mstore-gold">Jewelry & Bangles</button>
+            <button onclick="selectCategoryFilter('Perfumes & Mists')" class="text-left hover:text-mstore-gold">Perfumes & Mists</button>
+            <button onclick="selectCategoryFilter('Hair & Hijab Accessories')" class="text-left hover:text-mstore-gold">Hair & Hijab</button>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-white mb-3">M Store Headquarters & Contact</h4>
+          <p class="text-xs text-stone-400">Hub: Jhang / All Pakistan Nationwide Delivery</p>
+          <p class="text-xs text-stone-400 mt-1">Phone / WhatsApp: 0347-2310484</p>
+          <p class="text-xs text-stone-400 mt-1">Email: ziashahid78654@gmail.com</p>
+        </div>
+      </div>
+      <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-stone-500 gap-2">
+        <span>© 2026 M Store (Ladies Luxury Mall & Unbranded Couture). All Rights Reserved.</span>
+        <span>Frontend Boutique + Host Admin ERP, Cash Ledger & Supply Chain</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- COMPLETE M STORE JAVASCRIPT ENGINE                                    -->
+  <!-- ===================================================================== -->
+  <script>
+    const DB_KEYS = {
+      PRODUCTS: 'm_store_v1_products',
+      ORDERS: 'm_store_v1_orders',
+      BAG: 'm_store_v1_bag',
+      WISHLIST: 'm_store_v1_wishlist',
+      SUPPLY_LOG: 'm_store_v1_supply_log'
+    };
+
+    const MALL_CATEGORIES = [
+      'All Collections',
+      'Ladies Suits & Pret',
+      'Makeup & Cosmetics',
+      'Skincare & Glow',
+      'Handbags & Clutches',
+      'Footwear & Heels',
+      'Jewelry & Bangles',
+      'Perfumes & Mists',
+      'Hair & Hijab Accessories'
+    ];
+
+    // 16 Complete Ladies & Girls Mall Products across all 8 Departments
+    const INITIAL_PRODUCTS = [
+      {
+        id: 'MS-P-101',
+        sku: 'MS-SUIT-01',
+        name: 'Zari-e-Noor Embroidered 3-Pc Lawn & Chiffon Suit',
+        category: 'Ladies Suits & Pret',
+        price: 5450,
+        costPrice: 3100,
+        stock: 26,
+        supplier: 'Faisalabad Heritage Looms',
+        image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Heavy sequin & thread embroidered lawn front with pure bemberg chiffon dupatta.',
+        fullDesc: 'Crafted from ultra-fine 90/70 Swiss lawn with intricate resham and tilla embroidery on the neckline and daman. Paired with a digitally printed bemberg chiffon dupatta and dyed cambric trouser. Available unstitched or bespoke stitched to your measurements.',
+        fabricOrSpecs: 'Shirt: 90/70 Swiss Lawn | Dupatta: Pure Bemberg Chiffon | Trouser: Dyed Cambric',
+        sizesOrShades: ['Unstitched 3-Pc', 'Stitched XS', 'Stitched S', 'Stitched M', 'Stitched L', 'Stitched XL'],
+        customOptionsLabel: 'Select Unstitched or Custom Stitched Size'
+      },
+      {
+        id: 'MS-P-102',
+        sku: 'MS-SUIT-02',
+        name: 'Shahi Raw Silk Festive Co-ord & Sharara Pret',
+        category: 'Ladies Suits & Pret',
+        price: 8850,
+        costPrice: 5100,
+        stock: 15,
+        supplier: 'Lahore Bridal Couture Studio',
+        image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Hand-embellished Korean raw silk formal shirt with flared festive sharara.',
+        fullDesc: 'Designed for weddings, Eid dinners, and formal evenings. Features hand-worked dabka and pearl motifs over lustrous Korean raw silk with an organza gota-kinari dupatta.',
+        fabricOrSpecs: 'Pure Korean Raw Silk • Hand-Embellished Neckline • Organza Zari Dupatta',
+        sizesOrShades: ['Small (S)', 'Medium (M)', 'Large (L)', 'Custom Tailored Fit'],
+        customOptionsLabel: 'Select Pret Size'
+      },
+      {
+        id: 'MS-P-103',
+        sku: 'MS-MKP-01',
+        name: 'Velvet Matte Liquid Lipstick Vault (6 Bridal Shades)',
+        category: 'Makeup & Cosmetics',
+        price: 2650,
+        costPrice: 1200,
+        stock: 40,
+        supplier: 'Lahore Derma & Beauty Labs',
+        image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '16-hour smudge-proof, vitamin-E infused matte liquid lipsticks for all skin tones.',
+        fullDesc: 'A curated vault of 6 ultra-pigmented, non-drying liquid matte lipsticks ranging from soft everyday rosewood nudes to deep bridal crimson. 100% Halal-certified and paraben-free formula.',
+        fabricOrSpecs: '6 x 4.5ml Full-Size Tubes • Vitamin E & Argan Oil • Waterproof & Transfer-Proof',
+        sizesOrShades: ['Full 6-Shade Vault', 'Bridal Red Trio', 'Everyday Nude Trio'],
+        customOptionsLabel: 'Choose Shade Pack'
+      },
+      {
+        id: 'MS-P-104',
+        sku: 'MS-MKP-02',
+        name: 'Luminous Silk HD Liquid Foundation & Rose Gold Palette',
+        category: 'Makeup & Cosmetics',
+        price: 3450,
+        costPrice: 1650,
+        stock: 28,
+        supplier: 'Karachi Pro Cosmetics Formulators',
+        image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Full-coverage breathable HD foundation paired with 12-pan shimmer & matte eyeshadows.',
+        fullDesc: 'Achieve a flawless airbrushed finish that lasts through humid Pakistani summers. Includes a medium-to-full coverage HD foundation plus a 12-shade warm rose-gold and bronze eyeshadow palette.',
+        fabricOrSpecs: '30ml HD Foundation + 12-Pan Eyeshadow Palette • Oil-Free • Dermatologist Tested',
+        sizesOrShades: ['Ivory Fair (01)', 'Warm Beige (02)', 'Golden Honey (03)', 'Caramel Tan (04)'],
+        customOptionsLabel: 'Select Foundation Skin Tone'
+      },
+      {
+        id: 'MS-P-105',
+        sku: 'MS-SKN-01',
+        name: '24K Gold & Vitamin C Glass-Skin Radiance Serum',
+        category: 'Skincare & Glow',
+        price: 2950,
+        costPrice: 1300,
+        stock: 34,
+        supplier: 'Islamabad Botanical Skincare Lab',
+        image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Brightening serum with 15% Vitamin C, 24K gold flakes & hyaluronic acid.',
+        fullDesc: 'Targets dullness, uneven skin tone, and dark spots while deeply hydrating the skin barrier. Fast-absorbing, non-greasy dropper formula suitable for sensitive, dry, and combination skin.',
+        fabricOrSpecs: '30ml Glass Dropper • 15% L-Ascorbic Acid + Hyaluronic Acid + 24K Gold Leaf',
+        sizesOrShades: ['30ml Standard Bottle', '60ml Value Twin Pack'],
+        customOptionsLabel: 'Select Bottle Size'
+      },
+      {
+        id: 'MS-P-106',
+        sku: 'MS-SKN-02',
+        name: 'Hyaluronic Night Repair Cream & Pure Rosewater Mist',
+        category: 'Skincare & Glow',
+        price: 2550,
+        costPrice: 1150,
+        stock: 31,
+        supplier: 'Multan Organic Hydrosols',
+        image: 'https://images.unsplash.com/photo-1570194065650-d99fb4b8ccb0?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Overnight ceramide barrier recovery cream + steam-distilled Desi Gulab toning mist.',
+        fullDesc: 'Wake up to plump, dewy skin. Our ceramide and peptide night cream locks in moisture for 12 hours, paired with 100% pure steam-distilled Multani rosewater mist for instant refreshment.',
+        fabricOrSpecs: '50g Night Cream Jar + 120ml Rosewater Spray • Alcohol-Free & Sulfate-Free',
+        sizesOrShades: ['Complete Duo Set', 'Night Cream Only'],
+        customOptionsLabel: 'Select Skincare Set'
+      },
+      {
+        id: 'MS-P-107',
+        sku: 'MS-BAG-01',
+        name: 'Bella Quilted Gold-Chain Leather Tote Handbag',
+        category: 'Handbags & Clutches',
+        price: 4650,
+        costPrice: 2450,
+        stock: 19,
+        supplier: 'Karachi Artisanal Leather Works',
+        image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Structured diamond-quilted handbag with anti-tarnish brushed gold chain strap.',
+        fullDesc: 'Spacious enough for daily university, office, or mall outings while maintaining a sleek designer silhouette. Features 3 internal zipped compartments, satin lining, and protective metal base studs.',
+        fabricOrSpecs: 'Premium Saffiano Vegan Leather • Anti-Tarnish Gold Hardware • Size: 13" x 9.5"',
+        sizesOrShades: ['Obsidian Black', 'Blush Rose', 'Alabaster Cream', 'Espresso Brown'],
+        customOptionsLabel: 'Select Handbag Color'
+      },
+      {
+        id: 'MS-P-108',
+        sku: 'MS-BAG-02',
+        name: 'Shehnai Pearl & Crystal Bridal Minaudiere Clutch',
+        category: 'Handbags & Clutches',
+        price: 3950,
+        costPrice: 2050,
+        stock: 12,
+        supplier: 'Lahore Bridal Accessories Guild',
+        image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Hand-encrusted pearl and crystal evening clutch with detachable gold sling chain.',
+        fullDesc: 'An heirloom-worthy bridal and party clutch crafted on a solid brass frame with hand-set freshwater pearls and sparkling crystals. Fits large smartphones, lipstick, and cards effortlessly.',
+        fabricOrSpecs: 'Solid Brass Frame • Hand-Set Pearls & Crystals • Velvet Interior + Sling Chain',
+        sizesOrShades: ['Champagne Gold', 'Silver Crystal', 'Rose Gold'],
+        customOptionsLabel: 'Select Metallic Finish'
+      },
+      {
+        id: 'MS-P-109',
+        sku: 'MS-FTW-01',
+        name: 'Zardozi Hand-Embroidered Multani Bridal Khussa',
+        category: 'Footwear & Heels',
+        price: 2850,
+        costPrice: 1400,
+        stock: 25,
+        supplier: 'Multan Heritage Footwear Crafts',
+        image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Double-padded memory-foam sole khussa with intricate dabka, gota & pearl work.',
+        fullDesc: 'Say goodbye to shoe bites! Handcrafted by master artisans with extra-soft double memory-foam cushioning and pure leather lining, adorned with gold zari and pearl embroidery.',
+        fabricOrSpecs: '100% Pure Leather Lining • Double Memory Foam Cushion • Anti-Slip Rubber Sole',
+        sizesOrShades: ['EU 36 (PK 6)', 'EU 37 (PK 7)', 'EU 38 (PK 8)', 'EU 39 (PK 9)', 'EU 40 (PK 10)'],
+        customOptionsLabel: 'Select Ladies Shoe Size'
+      },
+      {
+        id: 'MS-P-110',
+        sku: 'MS-FTW-02',
+        name: 'Cinderella Crystal-Strap 2.5" Block Heels',
+        category: 'Footwear & Heels',
+        price: 4250,
+        costPrice: 2200,
+        stock: 18,
+        supplier: 'Lahore Luxury Footwear Studio',
+        image: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Comfortable 2.5-inch transparent & rhinestone block heels for weddings and parties.',
+        fullDesc: 'Engineered for all-night comfort at mehndi and walima events. Features a balanced 2.5-inch block heel, cushioned arch insole, and dazzling crystal-studded ankle straps.',
+        fabricOrSpecs: '2.5-Inch Balanced Block Heel • Rhinestone Straps • Cushioned Arch Footbed',
+        sizesOrShades: ['Gold - Size 37', 'Gold - Size 38', 'Gold - Size 39', 'Silver - Size 38', 'Silver - Size 39'],
+        customOptionsLabel: 'Select Color & Heel Size'
+      },
+      {
+        id: 'MS-P-111',
+        sku: 'MS-JWL-01',
+        name: 'Maharani Kundan Choker, Jhumka & Maang Tikka Set',
+        category: 'Jewelry & Bangles',
+        price: 3650,
+        costPrice: 1750,
+        stock: 16,
+        supplier: 'Lahore Royal Jewelers',
+        image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '22K gold-plated hand-set kundan choker necklace with pearl-drop jhumkas & tikka.',
+        fullDesc: 'Lightweight yet regal bridal and festive jewelry set crafted with mirror-cut kundan stones, ruby/emerald meenakari beads, and lustrous pearl drops. Packed in a velvet keepsake box.',
+        fabricOrSpecs: '22K Gold Micron Plating • Hypoallergenic Brass Base • Velvet Jewelry Box Included',
+        sizesOrShades: ['Emerald & Pearl', 'Ruby Maroon & Pearl', 'All-White Kundan'],
+        customOptionsLabel: 'Select Stone Color'
+      },
+      {
+        id: 'MS-P-112',
+        sku: 'MS-JWL-02',
+        name: 'Zari-Carved 24-Piece Bridal Bangles (Chooriyan) Box',
+        category: 'Jewelry & Bangles',
+        price: 1950,
+        costPrice: 880,
+        stock: 30,
+        supplier: 'Hyderabad & Lahore Bangle Artisans',
+        image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '24-piece set of stone-studded gold kangan and velvet-finish festive bangles.',
+        fullDesc: 'Complete your festive or bridal wrist stack with 4 heavy zircon-studded kangan paired with 20 finely carved gold and velvet-matte bangles.',
+        fabricOrSpecs: '24 Bangles Full Set • Tarnish-Resistant Gold Finish • American Zircon Stones',
+        sizesOrShades: ['Size 2.4 (Small)', 'Size 2.6 (Medium)', 'Size 2.8 (Large)'],
+        customOptionsLabel: 'Select Bangle Wrist Size'
+      },
+      {
+        id: 'MS-P-113',
+        sku: 'MS-PRF-01',
+        name: 'Oud-e-Gulab Reserve Eau De Parfum (100ml)',
+        category: 'Perfumes & Mists',
+        price: 4150,
+        costPrice: 1900,
+        stock: 22,
+        supplier: 'Grasse-Karachi Perfumery House',
+        image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Extrait-concentration feminine perfume blending Taif rose, saffron & aged oud.',
+        fullDesc: 'A captivating, long-lasting 12-hour feminine fragrance opening with Turkish damask rose and pink pepper, settling into warm vanilla amber and smooth Cambodian oud.',
+        fabricOrSpecs: '100ml Crystal Flacon • 28% Extrait Oil Concentration • 12+ Hours Longevity',
+        sizesOrShades: ['100ml Signature Bottle', '50ml Purse Flacon'],
+        customOptionsLabel: 'Select Perfume Volume'
+      },
+      {
+        id: 'MS-P-114',
+        sku: 'MS-PRF-02',
+        name: 'Vanilla Blossom & White Musk Body Mist Duo (250ml)',
+        category: 'Perfumes & Mists',
+        price: 2250,
+        costPrice: 980,
+        stock: 35,
+        supplier: 'Islamabad Botanical Perfumers',
+        image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Refreshing everyday shimmer & floral body mist infused with Madagascar vanilla.',
+        fullDesc: 'Light, sweet, and irresistibly fresh body mist designed for daily wear after showers, university, or gym. Leaves a soft powdery floral-vanilla trail without staining clothes.',
+        fabricOrSpecs: '250ml Fine Mist Spray • Aloe-Infused Skin Safe Formula • Non-Staining',
+        sizesOrShades: ['Vanilla Blossom', 'Peony & White Musk', 'Combo Pack of 2'],
+        customOptionsLabel: 'Select Fragrance Note'
+      },
+      {
+        id: 'MS-P-115',
+        sku: 'MS-HJB-01',
+        name: 'Royal Crinkle Chiffon & Silk Hijab Bundle (Set of 4)',
+        category: 'Hair & Hijab Accessories',
+        price: 2350,
+        costPrice: 1050,
+        stock: 33,
+        supplier: 'Karachi Modest Couture Mills',
+        image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '4 breathable, non-slip luxury hijabs with complimentary snag-free magnetic pins.',
+        fullDesc: 'Generously sized (72" x 30") breathable crinkle chiffon and modal silk hijabs that drape effortlessly without slipping. Includes 2 pairs of heavy-duty snag-free magnetic hijab pins.',
+        fabricOrSpecs: 'Size: 72" x 30" • Breathable Crinkle Chiffon • Includes 4 Magnetic Pins',
+        sizesOrShades: ['Neutral Earth Bundle', 'Pastel Rose Bundle', 'Classic Black & Ivory'],
+        customOptionsLabel: 'Select Hijab Color Bundle'
+      },
+      {
+        id: 'MS-P-116',
+        sku: 'MS-HJB-02',
+        name: 'Parisian Pearl & Gold Velvet Hair Claw Clips & Scrunchies (8-Pc)',
+        category: 'Hair & Hijab Accessories',
+        price: 1450,
+        costPrice: 600,
+        stock: 45,
+        supplier: 'Lahore Fashion Accessories Hub',
+        image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '4 strong-grip pearl & metallic claw clips + 4 pure mulberry silk hair scrunchies.',
+        fullDesc: 'Gentle on hair yet strong enough for thick buns. Combines 4 gold-plated pearl acetate claw clips with 4 anti-breakage silk scrunchies in a gift-ready box.',
+        fabricOrSpecs: '4 Acetate & Pearl Claw Clips + 4 Silk Scrunchies • Anti-Breakage Hold',
+        sizesOrShades: ['Champagne & Pearl Set', 'Rose Gold & Blush Set'],
+        customOptionsLabel: 'Select Accessory Tone'
+      }
+    ];
+
+    const INITIAL_ORDERS = [
+      {
+        id: 'MS-2026-1001',
+        date: '18 Nov 2026, 01:45 PM',
+        customerName: 'Fatima Zahra',
+        phone: '0300-7412589',
+        city: 'Lahore',
+        address: 'House 18-A, Johar Town Block G-1, Lahore',
+        paymentMethod: 'Cash on Delivery (COD)',
+        cashStatus: 'Pending COD',
+        status: 'Dispatched',
+        courier: 'TCS Express',
+        trackingNo: 'TCS-99204182',
+        subtotal: 8100,
+        discount: 0,
+        shipping: 0,
+        total: 8100,
+        totalCost: 4300,
+        items: [
+          { productId: 'MS-P-101', name: 'Zari-e-Noor Embroidered 3-Pc Lawn & Chiffon Suit', variant: 'Stitched M', note: 'Shirt length 41 in', qty: 1, price: 5450, costPrice: 3100 },
+          { productId: 'MS-P-103', name: 'Velvet Matte Liquid Lipstick Vault (6 Bridal Shades)', variant: 'Full 6-Shade Vault', note: 'Add gift wrap', qty: 1, price: 2650, costPrice: 1200 }
+        ]
+      },
+      {
+        id: 'MS-2026-1002',
+        date: '18 Nov 2026, 04:10 PM',
+        customerName: 'Mahnoor Siddiqui',
+        phone: '0321-8894321',
+        city: 'Islamabad / Rawalpindi',
+        address: 'House 7, Street 22, F-8/2, Islamabad',
+        paymentMethod: 'JazzCash / EasyPaisa',
+        cashStatus: 'Cash Collected',
+        status: 'Processing',
+        courier: 'Leopards Courier',
+        trackingNo: 'Awaiting Label',
+        subtotal: 7600,
+        discount: 760,
+        shipping: 0,
+        total: 6840,
+        totalCost: 3750,
+        items: [
+          { productId: 'MS-P-107', name: 'Bella Quilted Gold-Chain Leather Tote Handbag', variant: 'Obsidian Black', note: '', qty: 1, price: 4650, costPrice: 2450 },
+          { productId: 'MS-P-105', name: '24K Gold & Vitamin C Glass-Skin Radiance Serum', variant: '30ml Standard Bottle', note: '', qty: 1, price: 2950, costPrice: 1300 }
+        ]
+      }
+    ];
+
+    const INITIAL_SUPPLY_LOG = [
+      { time: '18 Nov 2026, 04:10 PM', type: 'DEDUCT', text: 'Order #MS-2026-1002 deducted 1x Bella Quilted Tote Bag & 1x 24K Gold Serum.' },
+      { time: '18 Nov 2026, 10:30 AM', type: 'RESTOCK', text: 'PO Received: +25 units of Zari-e-Noor 3-Pc Lawn Suit from Faisalabad Heritage Looms.' }
+    ];
+
+    // Live State
+    let products = [];
+    let orders = [];
+    let bag = [];
+    let wishlist = [];
+    let supplyLog = [];
+    let activeCategory = 'All Collections';
+    let searchTerm = '';
+    let bagPromoActive = false;
+    let isHostAuthenticated = false;
+
+    // Product Detail Modal State
+    let activeDetailProduct = null;
+    let chosenDetailVariant = '';
+    let chosenDetailQty = 1;
+
+    // Boot Database
+    function initMStore() {
+      try {
+        products = JSON.parse(localStorage.getItem(DB_KEYS.PRODUCTS)) || JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+        orders = JSON.parse(localStorage.getItem(DB_KEYS.ORDERS)) || JSON.parse(JSON.stringify(INITIAL_ORDERS));
+        bag = JSON.parse(localStorage.getItem(DB_KEYS.BAG)) || [];
+        wishlist = JSON.parse(localStorage.getItem(DB_KEYS.WISHLIST)) || [];
+        supplyLog = JSON.parse(localStorage.getItem(DB_KEYS.SUPPLY_LOG)) || JSON.parse(JSON.stringify(INITIAL_SUPPLY_LOG));
+      } catch (e) {
+        products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+        orders = JSON.parse(JSON.stringify(INITIAL_ORDERS));
+        bag = [];
+        wishlist = [];
+        supplyLog = JSON.parse(JSON.stringify(INITIAL_SUPPLY_LOG));
+      }
+      persistState();
+      renderAllViews();
+    }
+
+    function persistState() {
+      try {
+        localStorage.setItem(DB_KEYS.PRODUCTS, JSON.stringify(products));
+        localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(orders));
+        localStorage.setItem(DB_KEYS.BAG, JSON.stringify(bag));
+        localStorage.setItem(DB_KEYS.WISHLIST, JSON.stringify(wishlist));
+        localStorage.setItem(DB_KEYS.SUPPLY_LOG, JSON.stringify(supplyLog));
+      } catch (e) {
+        // In-memory fallback
+      }
+    }
+
+    function resetMStoreDatabase() {
+      products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+      orders = JSON.parse(JSON.stringify(INITIAL_ORDERS));
+      bag = [];
+      wishlist = [];
+      supplyLog = JSON.parse(JSON.stringify(INITIAL_SUPPLY_LOG));
+      bagPromoActive = false;
+      persistState();
+      renderAllViews();
+      showToast('M Store Demo Data restored to original state!');
+    }
+
+    function renderAllViews() {
+      renderCategoryPills();
+      renderStorefrontCatalog();
+      renderBagDrawer();
+      updateNavbarCounters();
+      renderHostKPIs();
+      renderHostCatalogList();
+      renderHostOrdersTable();
+      renderHostCashLedger();
+      renderHostSupplyChain();
+    }
+
+    // Toast Helper
+    let toastTimer = null;
+    function showToast(msg) {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-text').textContent = msg;
+      banner.classList.remove('translate-y-24', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.add('translate-y-24', 'opacity-0');
+        banner.classList.remove('translate-y-0', 'opacity-100');
+      }, 3200);
+    }
+
+    // =========================================================================
+    // STOREFRONT NAVIGATION, CATEGORIES & PRODUCT GRID
+    // =========================================================================
+    function renderCategoryPills() {
+      const bar = document.getElementById('category-pill-bar');
+      bar.innerHTML = MALL_CATEGORIES.map(cat => {
+        const isActive = activeCategory === cat;
+        return `
+          <button
+            onclick="selectCategoryFilter('${cat}')"
+            class="px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold transition-all ${isActive ? 'bg-mstore-dark text-white shadow-md' : 'bg-white border border-stone-200 text-stone-700 hover:border-mstore-gold'}"
+          >
+            ${cat}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategoryFilter(cat) {
+      activeCategory = cat;
+      switchToStorefront();
+      renderCategoryPills();
+      renderStorefrontCatalog();
+    }
+
+    function onSearchCatalog(val) {
+      searchTerm = val.trim().toLowerCase();
+      renderStorefrontCatalog();
+    }
+
+    function renderStorefrontCatalog() {
+      const grid = document.getElementById('mall-product-grid');
+      const countEl = document.getElementById('visible-product-count');
+      const sortMode = document.getElementById('catalog-sort').value;
+
+      let list = products.filter(p => {
+        const catMatch = activeCategory === 'All Collections' || p.category === activeCategory;
+        const textMatch = !searchTerm ||
+          p.name.toLowerCase().includes(searchTerm) ||
+          p.category.toLowerCase().includes(searchTerm) ||
+          p.shortDesc.toLowerCase().includes(searchTerm);
+        return catMatch && textMatch;
+      });
+
+      if (sortMode === 'low-high') list.sort((a, b) => a.price - b.price);
+      if (sortMode === 'high-low') list.sort((a, b) => b.price - a.price);
+
+      countEl.textContent = list.length;
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-stone-200">
+            <i class="fa-solid fa-magnifying-glass text-3xl text-stone-300 mb-3"></i>
+            <h3 class="font-editorial text-xl font-bold">No products matched your filter</h3>
+            <p class="text-xs text-stone-500 mt-1">Select "All Collections" or clear your search term.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(prod => {
+        const wished = wishlist.includes(prod.id);
+        const soldOut = prod.stock <= 0;
+        const lowStock = prod.stock > 0 && prod.stock <= 8;
+
+        return `
+          <div class="product-card bg-white rounded-3xl border border-stone-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+            <div>
+              <div onclick="openProductDetailModal('${prod.id}')" class="relative h-64 bg-stone-100 overflow-hidden cursor-pointer">
+                <img
+                  src="${prod.image}"
+                  onerror="this.src='https://placehold.co/600x600/111115/C59B4B?text=M+Store'"
+                  alt="${prod.name}"
+                  class="product-photo w-full h-full object-cover transition-transform duration-500"
+                />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-mstore-dark/90 text-mstore-goldLight text-[10px] font-bold">
+                  ${prod.category}
+                </span>
+
+                <button
+                  onclick="event.stopPropagation(); toggleWishlistItem('${prod.id}')"
+                  aria-label="Wishlist"
+                  class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center shadow hover:scale-110 transition-transform"
+                >
+                  <i class="${wished ? 'fa-solid text-mstore-rose' : 'fa-regular text-stone-700'} fa-heart"></i>
+                </button>
+
+                <div class="absolute bottom-3 left-3">
+                  ${soldOut
+                    ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-bold">Sold Out</span>`
+                    : lowStock
+                      ? `<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-white text-[10px] font-bold">Only ${prod.stock} Left</span>`
+                      : `<span class="px-2.5 py-1 rounded-lg bg-emerald-600/90 text-white text-[10px] font-bold">In Stock (${prod.stock})</span>`
+                  }
+                </div>
+              </div>
+
+              <div class="p-5">
+                <h3 onclick="openProductDetailModal('${prod.id}')" class="font-editorial text-lg font-bold text-mstore-dark hover:text-mstore-gold cursor-pointer line-clamp-1">
+                  ${prod.name}
+                </h3>
+                <p class="text-xs text-stone-500 mt-1 line-clamp-2">${prod.shortDesc}</p>
+
+                <div class="flex flex-wrap gap-1 mt-3">
+                  ${(prod.sizesOrShades || []).slice(0, 3).map(v => `<span class="px-2 py-0.5 rounded-md bg-stone-100 text-[10px] font-semibold text-stone-600">${v}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="px-5 pb-5 pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+              <div class="text-base sm:text-lg font-extrabold text-mstore-dark">Rs. ${prod.price.toLocaleString()}</div>
+              <button
+                onclick="openProductDetailModal('${prod.id}')"
+                ${soldOut ? 'disabled' : ''}
+                class="px-3.5 py-2.5 rounded-2xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${soldOut ? 'bg-stone-200 text-stone-400 cursor-not-allowed' : 'bg-mstore-dark hover:bg-mstore-gold hover:text-mstore-dark text-white shadow'}"
+              >
+                <i class="fa-solid fa-sliders"></i>
+                <span>${soldOut ? 'Out of Stock' : 'View Details & Customize'}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // SEPARATE PRODUCT DETAIL & CUSTOMIZATION MODAL
+    // =========================================================================
+    function openProductDetailModal(prodId) {
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      activeDetailProduct = prod;
+      chosenDetailVariant = (prod.sizesOrShades && prod.sizesOrShades[0]) || 'Standard';
+      chosenDetailQty = 1;
+
+      document.getElementById('pd-img').src = prod.image;
+      document.getElementById('pd-sku').textContent = prod.sku;
+      document.getElementById('pd-stock-badge').textContent = `${prod.stock} Units Available`;
+      document.getElementById('pd-category').textContent = prod.category;
+      document.getElementById('pd-title').textContent = prod.name;
+      document.getElementById('pd-price').textContent = `Rs. ${prod.price.toLocaleString()}`;
+      document.getElementById('pd-full-desc').textContent = prod.fullDesc || prod.shortDesc;
+      document.getElementById('pd-specs').textContent = prod.fabricOrSpecs || 'M Store Verified Quality';
+      document.getElementById('pd-custom-label').textContent = `1. ${prod.customOptionsLabel || 'Select Size / Shade / Variant'}:`;
+      document.getElementById('pd-custom-note').value = '';
+      document.getElementById('pd-qty').textContent = '1';
+
+      renderDetailVariantPills();
+      document.getElementById('product-detail-modal').classList.remove('hidden');
+    }
+
+    function renderDetailVariantPills() {
+      const wrap = document.getElementById('pd-variant-pills');
+      wrap.innerHTML = (activeDetailProduct.sizesOrShades || ['Standard']).map(v => `
+        <button
+          type="button"
+          onclick="selectDetailVariant('${v.replace(/'/g, "\\'")}')"
+          class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${chosenDetailVariant === v ? 'bg-mstore-dark text-white border-mstore-dark shadow-xs' : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-mstore-gold'}"
+        >
+          ${v}
+        </button>
+      `).join('');
+    }
+
+    function selectDetailVariant(val) {
+      chosenDetailVariant = val;
+      renderDetailVariantPills();
+    }
+
+    function changeDetailQty(delta) {
+      if (!activeDetailProduct) return;
+      const next = chosenDetailQty + delta;
+      if (next >= 1 && next <= activeDetailProduct.stock) {
+        chosenDetailQty = next;
+        document.getElementById('pd-qty').textContent = chosenDetailQty;
+      }
+    }
+
+    function closeProductDetailModal() {
+      document.getElementById('product-detail-modal').classList.add('hidden');
+    }
+
+    function addDetailProductToBag(goStraightToCheckout) {
+      if (!activeDetailProduct || activeDetailProduct.stock <= 0) return;
+      const note = document.getElementById('pd-custom-note').value.trim();
+
+      const existingIdx = bag.findIndex(item =>
+        item.productId === activeDetailProduct.id &&
+        item.variant === chosenDetailVariant &&
+        item.note === note
+      );
+
+      if (existingIdx > -1) {
+        bag[existingIdx].qty = Math.min(activeDetailProduct.stock, bag[existingIdx].qty + chosenDetailQty);
+      } else {
+        bag.push({
+          productId: activeDetailProduct.id,
+          name: activeDetailProduct.name,
+          image: activeDetailProduct.image,
+          price: activeDetailProduct.price,
+          costPrice: activeDetailProduct.costPrice,
+          variant: chosenDetailVariant,
+          note: note,
+          qty: chosenDetailQty
+        });
+      }
+
+      persistState();
+      updateNavbarCounters();
+      renderBagDrawer();
+      closeProductDetailModal();
+
+      if (goStraightToCheckout) {
+        openCheckoutModal();
+      } else {
+        toggleBagDrawer(true);
+        showToast('Customized item added to your M Store Bag!');
+      }
+    }
+
+    // =========================================================================
+    // WISHLIST, BAG DRAWER & CHECKOUT
+    // =========================================================================
+    function toggleWishlistItem(prodId) {
+      const idx = wishlist.indexOf(prodId);
+      if (idx > -1) {
+        wishlist.splice(idx, 1);
+        showToast('Removed from Wishlist');
+      } else {
+        wishlist.push(prodId);
+        showToast('Saved to M Store Wishlist!');
+      }
+      persistState();
+      updateNavbarCounters();
+      renderStorefrontCatalog();
+    }
+
+    function openWishlistModal() {
+      const body = document.getElementById('wishlist-body');
+      const items = products.filter(p => wishlist.includes(p.id));
+      if (items.length === 0) {
+        body.innerHTML = `<p class="text-center text-stone-500 py-6">Your M Store wishlist is empty.</p>`;
+      } else {
+        body.innerHTML = items.map(p => `
+          <div class="flex items-center justify-between gap-3 p-2.5 rounded-2xl bg-stone-50 border border-stone-200">
+            <img src="${p.image}" class="w-12 h-12 rounded-xl object-cover" />
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-mstore-dark truncate">${p.name}</div>
+              <div class="text-xs font-bold text-mstore-gold">Rs. ${p.price.toLocaleString()}</div>
+            </div>
+            <button onclick="closeWishlistModal(); openProductDetailModal('${p.id}')" class="px-3 py-1.5 rounded-xl bg-mstore-dark text-white text-[11px] font-bold">Customize</button>
+          </div>
+        `).join('');
+      }
+      document.getElementById('wishlist-modal').classList.remove('hidden');
+    }
+
+    function closeWishlistModal() {
+      document.getElementById('wishlist-modal').classList.add('hidden');
+    }
+
+    function toggleBagDrawer(show) {
+      const drawer = document.getElementById('bag-drawer');
+      if (show) {
+        renderBagDrawer();
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function updateNavbarCounters() {
+      document.getElementById('bag-count').textContent = bag.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('wishlist-count').textContent = wishlist.length;
+      document.getElementById('header-order-count').textContent = orders.length;
+    }
+
+    function getBagTotals() {
+      const subtotal = bag.reduce((s, i) => s + (i.price * i.qty), 0);
+      const totalCost = bag.reduce((s, i) => s + ((i.costPrice || Math.round(i.price * 0.55)) * i.qty), 0);
+      const discount = bagPromoActive ? Math.round(subtotal * 0.10) : 0;
+      const netSub = subtotal - discount;
+      const shipping = subtotal === 0 ? 0 : (netSub >= 5000 ? 0 : 250);
+      const total = netSub + shipping;
+      return { subtotal, totalCost, discount, shipping, total };
+    }
+
+    function renderBagDrawer() {
+      const list = document.getElementById('bag-items-list');
+      const btn = document.getElementById('bag-checkout-btn');
+
+      if (bag.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-14 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-stone-100 mx-auto flex items-center justify-center text-stone-400 text-2xl">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h4 class="font-editorial text-lg font-bold">Your M Store Bag is Empty</h4>
+            <p class="text-xs text-stone-500">Browse ladies suits, makeup, skincare, handbags, footwear & perfumes.</p>
+          </div>
+        `;
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        list.innerHTML = bag.map((item, idx) => `
+          <div class="flex gap-3 p-3 rounded-2xl bg-stone-50 border border-stone-200">
+            <img src="${item.image}" class="w-16 h-20 rounded-xl object-cover shrink-0" />
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start gap-1">
+                <h5 class="font-bold text-xs sm:text-sm text-mstore-dark truncate">${item.name}</h5>
+                <button onclick="removeBagItem(${idx})" class="text-stone-400 hover:text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+              </div>
+              <div class="text-[11px] text-stone-600 mt-0.5">Option: <strong>${item.variant}</strong></div>
+              ${item.note ? `<div class="text-[10px] text-mstore-gold font-semibold mt-0.5"><i class="fa-solid fa-pen-nib mr-1"></i>"${item.note}"</div>` : ''}
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center border border-stone-300 rounded-lg bg-white">
+                  <button onclick="updateBagQty(${idx}, -1)" class="px-2 py-0.5 text-xs font-bold">-</button>
+                  <span class="px-2 text-xs font-extrabold">${item.qty}</span>
+                  <button onclick="updateBagQty(${idx}, 1)" class="px-2 py-0.5 text-xs font-bold">+</button>
+                </div>
+                <span class="text-xs sm:text-sm font-extrabold text-mstore-dark">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const totals = getBagTotals();
+      document.getElementById('bag-subtotal').textContent = `Rs. ${totals.subtotal.toLocaleString()}`;
+      const discLine = document.getElementById('bag-discount-line');
+      if (totals.discount > 0) {
+        discLine.classList.remove('hidden');
+        document.getElementById('bag-discount').textContent = `-Rs. ${totals.discount.toLocaleString()}`;
+      } else {
+        discLine.classList.add('hidden');
+      }
+      document.getElementById('bag-shipping').textContent = totals.shipping === 0 && totals.subtotal > 0 ? 'FREE' : `Rs. ${totals.shipping}`;
+      document.getElementById('bag-total').textContent = `Rs. ${totals.total.toLocaleString()}`;
+    }
+
+    function updateBagQty(idx, delta) {
+      const item = bag[idx];
+      if (!item) return;
+      const prod = products.find(p => p.id === item.productId);
+      const maxStock = prod ? prod.stock : 99;
+      const next = item.qty + delta;
+      if (next <= 0) {
+        bag.splice(idx, 1);
+      } else if (next <= maxStock) {
+        item.qty = next;
+      }
+      persistState();
+      updateNavbarCounters();
+      renderBagDrawer();
+    }
+
+    function removeBagItem(idx) {
+      bag.splice(idx, 1);
+      persistState();
+      updateNavbarCounters();
+      renderBagDrawer();
+    }
+
+    function applyBagPromo() {
+      const code = document.getElementById('bag-promo-input').value.trim().toUpperCase();
+      if (code === 'MSTORE10') {
+        bagPromoActive = true;
+        renderBagDrawer();
+        showToast('Promo MSTORE10 applied (10% OFF)!');
+      } else {
+        showToast('Invalid promo code. Use MSTORE10 for 10% off.');
+      }
+    }
+
+    function openCheckoutModal() {
+      if (bag.length === 0) return;
+      toggleBagDrawer(false);
+      const totals = getBagTotals();
+      document.getElementById('co-final-total').textContent = `Rs. ${totals.total.toLocaleString()}`;
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+
+    function submitMStoreOrder(event) {
+      event.preventDefault();
+      if (bag.length === 0) return;
+
+      const customerName = document.getElementById('co-name').value.trim();
+      const phone = document.getElementById('co-phone').value.trim();
+      const city = document.getElementById('co-city').value;
+      const address = document.getElementById('co-address').value.trim();
+      const paymentMethod = document.querySelector('input[name="co-payment"]:checked').value;
+      const totals = getBagTotals();
+
+      const orderId = `MS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      const dateStr = new Date().toLocaleString('en-PK', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const isOnlinePaid = paymentMethod !== 'Cash on Delivery (COD)';
+
+      const newOrder = {
+        id: orderId,
+        date: dateStr,
+        customerName,
+        phone,
+        city,
+        address,
+        paymentMethod,
+        cashStatus: isOnlinePaid ? 'Cash Collected' : 'Pending COD',
+        status: 'Pending',
+        courier: 'Pending Assignment',
+        trackingNo: 'Awaiting Dispatch',
+        subtotal: totals.subtotal,
+        discount: totals.discount,
+        shipping: totals.shipping,
+        total: totals.total,
+        totalCost: totals.totalCost,
+        items: JSON.parse(JSON.stringify(bag))
+      };
+
+      // Deduct Warehouse Stock & Log Supply Chain Entry
+      bag.forEach(bItem => {
+        const prod = products.find(p => p.id === bItem.productId);
+        if (prod) {
+          prod.stock = Math.max(0, prod.stock - bItem.qty);
+          supplyLog.unshift({
+            time: dateStr,
+            type: 'DEDUCT',
+            text: `Order #${orderId} (${city}) deducted ${bItem.qty}x ${prod.name} [${bItem.variant}].`
+          });
+        }
+      });
+
+      orders.unshift(newOrder);
+      bag = [];
+      bagPromoActive = false;
+      persistState();
+      renderAllViews();
+      closeCheckoutModal();
+
+      document.getElementById('track-id-input').value = orderId;
+      openTrackOrderModal();
+      runOrderTrackingLookup();
+      showToast(`Order ${orderId} confirmed! Synced with Host Admin & Cash Ledger.`);
+    }
+
+    // =========================================================================
+    // LIVE CUSTOMER ORDER TRACKER
+    // =========================================================================
+    function openTrackOrderModal() {
+      document.getElementById('track-order-modal').classList.remove('hidden');
+    }
+
+    function closeTrackOrderModal() {
+      document.getElementById('track-order-modal').classList.add('hidden');
+    }
+
+    function runOrderTrackingLookup() {
+      const idQuery = document.getElementById('track-id-input').value.trim().toUpperCase();
+      const box = document.getElementById('track-output-box');
+      const ord = orders.find(o => o.id.toUpperCase() === idQuery);
+
+      if (!ord) {
+        box.innerHTML = `<div class="text-rose-600 font-bold">Order ID "${idQuery}" not found. Try <strong>MS-2026-1001</strong> or place a new order.</div>`;
+        return;
+      }
+
+      const stages = ['Pending', 'Processing', 'Dispatched', 'Delivered'];
+      const stageIdx = stages.indexOf(ord.status);
+
+      box.innerHTML = `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+            <div>
+              <span class="font-extrabold text-mstore-dark text-sm">${ord.id}</span>
+              <div class="text-[11px] text-stone-500">${ord.date} • ${ord.city}</div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-mstore-gold/20 text-mstore-dark font-extrabold text-xs">${ord.status}</span>
+          </div>
+
+          <div class="grid grid-cols-4 gap-1 text-center text-[10px] font-bold pt-1">
+            ${stages.map((st, idx) => `
+              <div class="p-1.5 rounded-lg ${idx <= stageIdx ? 'bg-emerald-600 text-white' : 'bg-stone-200 text-stone-500'}">
+                ${st}
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="bg-white p-3 rounded-xl border border-stone-200 space-y-1 text-xs">
+            <div><strong>Buyer:</strong> ${ord.customerName} (${ord.phone})</div>
+            <div><strong>Address:</strong> ${ord.address}</div>
+            <div><strong>Courier:</strong> ${ord.courier} | <strong>Tracking #:</strong> ${ord.trackingNo}</div>
+            <div><strong>Payment (${ord.paymentMethod}):</strong> <span class="font-extrabold text-emerald-700">Rs. ${ord.total.toLocaleString()}</span></div>
+          </div>
+
+          <div>
+            <div class="font-bold text-xs mb-1">Customized Items Ordered:</div>
+            <ul class="space-y-1 text-[11px] text-stone-600">
+              ${ord.items.map(it => `<li>• <strong>${it.qty}x ${it.name}</strong> (${it.variant}) ${it.note ? `— <em>"${it.note}"</em>` : ''}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // HOST ADMIN ACCESS & ERP DASHBOARD
+    // =========================================================================
+    function handleHostAdminAccess() {
+      if (isHostAuthenticated) {
+        switchToHostDashboard();
+      } else {
+        document.getElementById('host-login-modal').classList.remove('hidden');
+      }
+    }
+
+    function closeHostLoginModal() {
+      document.getElementById('host-login-modal').classList.add('hidden');
+    }
+
+    function verifyHostPasscode(event) {
+      event.preventDefault();
+      const code = document.getElementById('host-passcode-input').value.trim();
+      if (code === '7860') {
+        isHostAuthenticated = true;
+        closeHostLoginModal();
+        switchToHostDashboard();
+        showToast('Welcome Host! M Store Admin & Supply Chain Unlocked.');
+      } else {
+        showToast('Incorrect Passcode. Default Host Passcode is 7860.');
+      }
+    }
+
+    function lockHostSession() {
+      isHostAuthenticated = false;
+      switchToStorefront();
+      showToast('Host Admin Panel locked.');
+    }
+
+    function switchToHostDashboard() {
+      document.getElementById('storefront-section').classList.add('hidden');
+      document.getElementById('host-admin-section').classList.remove('hidden');
+      document.getElementById('desktop-search-box').classList.add('md:hidden');
+      document.getElementById('mobile-search-box').classList.add('hidden');
+      document.getElementById('btn-host-admin').classList.add('hidden');
+      document.getElementById('btn-back-store').classList.remove('hidden');
+      renderAllViews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchToStorefront() {
+      document.getElementById('host-admin-section').classList.add('hidden');
+      document.getElementById('storefront-section').classList.remove('hidden');
+      document.getElementById('desktop-search-box').classList.remove('md:hidden');
+      document.getElementById('mobile-search-box').classList.remove('hidden');
+      document.getElementById('btn-back-store').classList.add('hidden');
+      document.getElementById('btn-host-admin').classList.remove('hidden');
+      renderStorefrontCatalog();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchHostTab(tabKey) {
+      ['catalog', 'orders', 'cash', 'supply'].forEach(key => {
+        const panel = document.getElementById(`host-tab-${key}`);
+        const btn = document.getElementById(`htab-btn-${key}`);
+        if (key === tabKey) {
+          panel.classList.remove('hidden');
+          btn.className = 'host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-mstore-dark text-white shadow transition-all flex items-center gap-2';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'host-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white border border-stone-200 text-stone-700 hover:border-mstore-gold transition-all flex items-center gap-2';
+        }
+      });
+    }
+
+    function renderHostKPIs() {
+      const activeOrders = orders.filter(o => o.status !== 'Cancelled');
+      const grossRevenue = activeOrders.reduce((s, o) => s + o.total, 0);
+      const collectedCash = activeOrders.filter(o => o.cashStatus === 'Cash Collected').reduce((s, o) => s + o.total, 0);
+      const pendingCOD = activeOrders.filter(o => o.cashStatus !== 'Cash Collected').reduce((s, o) => s + o.total, 0);
+      const totalCOGS = activeOrders.reduce((s, o) => s + (o.totalCost || Math.round(o.total * 0.55)), 0);
+      const netProfit = grossRevenue - totalCOGS;
+      const marginPct = grossRevenue > 0 ? Math.round((netProfit / grossRevenue) * 100) : 0;
+      const totalStockUnits = products.reduce((s, p) => s + p.stock, 0);
+
+      document.getElementById('host-kpi-revenue').textContent = `Rs. ${grossRevenue.toLocaleString()}`;
+      document.getElementById('host-kpi-collected').textContent = `Rs. ${collectedCash.toLocaleString()} Cash Collected`;
+      document.getElementById('host-kpi-pending-cod').textContent = `Rs. ${pendingCOD.toLocaleString()}`;
+      document.getElementById('host-kpi-profit').textContent = `Rs. ${netProfit.toLocaleString()}`;
+      document.getElementById('host-kpi-margin-pct').textContent = `${marginPct}% Net Margin`;
+      document.getElementById('host-kpi-stock').textContent = `${totalStockUnits} Units`;
+      document.getElementById('host-kpi-skus').textContent = `${products.length} Active Products`;
+      document.getElementById('supply-warehouse-total').textContent = `${totalStockUnits} Units In Stock`;
+    }
+
+    // Host Tab 1: Catalog Control (Add, Edit & Remove Products)
+    function applyImagePreset(url) {
+      document.getElementById('hf-image').value = url;
+    }
+
+    function clearHostProductForm() {
+      document.getElementById('host-product-form').reset();
+      document.getElementById('hf-id').value = '';
+      document.getElementById('host-form-heading').textContent = 'Add New Product to M Store';
+    }
+
+    function loadProductIntoHostEditor(prodId) {
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      document.getElementById('host-form-heading').textContent = `Editing: ${prod.name}`;
+      document.getElementById('hf-id').value = prod.id;
+      document.getElementById('hf-name').value = prod.name;
+      document.getElementById('hf-category').value = prod.category;
+      document.getElementById('hf-supplier').value = prod.supplier || 'M Store Central Hub';
+      document.getElementById('hf-price').value = prod.price;
+      document.getElementById('hf-cost').value = prod.costPrice;
+      document.getElementById('hf-stock').value = prod.stock;
+      document.getElementById('hf-custom-label').value = prod.customOptionsLabel || '';
+      document.getElementById('hf-variants').value = (prod.sizesOrShades || []).join(', ');
+      document.getElementById('hf-image').value = prod.image;
+      document.getElementById('hf-specs').value = prod.fabricOrSpecs || '';
+      document.getElementById('hf-desc').value = prod.fullDesc || prod.shortDesc || '';
+
+      switchHostTab('catalog');
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+      showToast(`Loaded "${prod.name}" for editing`);
+    }
+
+    function handleSaveProduct(event) {
+      event.preventDefault();
+      const editId = document.getElementById('hf-id').value;
+      const name = document.getElementById('hf-name').value.trim();
+      const category = document.getElementById('hf-category').value;
+      const supplier = document.getElementById('hf-supplier').value.trim();
+      const price = parseInt(document.getElementById('hf-price').value, 10) || 1000;
+      const costPrice = parseInt(document.getElementById('hf-cost').value, 10) || Math.round(price * 0.55);
+      const stock = parseInt(document.getElementById('hf-stock').value, 10) || 0;
+      const customOptionsLabel = document.getElementById('hf-custom-label').value.trim() || 'Select Size / Shade / Option';
+      const variantsRaw = document.getElementById('hf-variants').value.trim();
+      const image = document.getElementById('hf-image').value.trim();
+      const fabricOrSpecs = document.getElementById('hf-specs').value.trim();
+      const fullDesc = document.getElementById('hf-desc').value.trim();
+
+      const sizesOrShades = variantsRaw ? variantsRaw.split(',').map(v => v.trim()).filter(Boolean) : ['Standard'];
+      const shortDesc = fullDesc.length > 95 ? fullDesc.slice(0, 92) + '...' : fullDesc;
+
+      if (editId) {
+        const idx = products.findIndex(p => p.id === editId);
+        if (idx > -1) {
+          products[idx] = {
+            ...products[idx],
+            name, category, supplier, price, costPrice, stock, customOptionsLabel, sizesOrShades, image, fabricOrSpecs, fullDesc, shortDesc
+          };
+          showToast(`Updated "${name}" on M Store!`);
+        }
+      } else {
+        const newProd = {
+          id: `MS-P-${Math.floor(200 + Math.random() * 799)}`,
+          sku: `MS-${category.slice(0, 3).toUpperCase()}-${Math.floor(10 + Math.random() * 89)}`,
+          name, category, price, costPrice, stock, supplier, image, shortDesc, fullDesc, fabricOrSpecs, sizesOrShades, customOptionsLabel
+        };
+        products.unshift(newProd);
+        supplyLog.unshift({
+          time: new Date().toLocaleString('en-PK', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
+          type: 'ADD',
+          text: `Host added new product "${name}" (${newProd.sku}) with ${stock} units.`
+        });
+        showToast(`New product "${name}" added to M Store!`);
+      }
+
+      clearHostProductForm();
+      persistState();
+      renderAllViews();
+    }
+
+    function removeProductFromStore(prodId) {
+      const target = products.find(p => p.id === prodId);
+      products = products.filter(p => p.id !== prodId);
+      bag = bag.filter(b => b.productId !== prodId);
+      wishlist = wishlist.filter(w => w !== prodId);
+      if (target) {
+        supplyLog.unshift({
+          time: new Date().toLocaleString('en-PK', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
+          type: 'REMOVE',
+          text: `Host removed product "${target.name}" (${target.sku}) from M Store.`
+        });
+      }
+      persistState();
+      renderAllViews();
+      showToast('Product removed from M Store storefront.');
+    }
+
+    function renderHostCatalogList() {
+      const listEl = document.getElementById('host-catalog-list');
+      const filterCat = document.getElementById('host-cat-filter').value;
+      const filtered = products.filter(p => filterCat === 'All' || p.category === filterCat);
+
+      document.getElementById('host-catalog-total').textContent = filtered.length;
+
+      listEl.innerHTML = filtered.map(p => `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-stone-50 border border-stone-200 hover:border-mstore-gold transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <img src="${p.image}" class="w-14 h-14 rounded-xl object-cover shrink-0" />
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold uppercase text-mstore-gold">${p.category}</span>
+                <span class="text-[10px] text-stone-400">• ${p.sku}</span>
+              </div>
+              <h4 class="font-bold text-sm text-mstore-dark truncate">${p.name}</h4>
+              <div class="text-xs text-stone-600 mt-0.5">
+                Sale: <strong>Rs. ${p.price.toLocaleString()}</strong> | Cost: Rs. ${p.costPrice.toLocaleString()} | Stock: <strong class="${p.stock <= 8 ? 'text-rose-600' : 'text-emerald-600'}">${p.stock}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+            <button onclick="loadProductIntoHostEditor('${p.id}')" class="px-3 py-1.5 rounded-xl bg-mstore-dark text-white hover:bg-mstore-gold hover:text-mstore-dark text-xs font-bold transition-colors">
+              <i class="fa-solid fa-pen mr-1"></i> Edit
+            </button>
+            <button onclick="removeProductFromStore('${p.id}')" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-colors">
+              <i class="fa-solid fa-trash mr-1"></i> Remove from Store
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Host Tab 2: Order Details & Fulfillment
+    function renderHostOrdersTable() {
+      const tbody = document.getElementById('host-orders-tbody');
+      const filterStatus = document.getElementById('host-order-filter').value;
+      const list = orders.filter(o => filterStatus === 'All' || o.status === filterStatus);
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-stone-400">No orders in this category.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(ord => {
+        const badgeClass =
+          ord.status === 'Delivered' ? 'bg-emerald-100 text-emerald-800' :
+          ord.status === 'Dispatched' ? 'bg-blue-100 text-blue-800' :
+          ord.status === 'Cancelled' ? 'bg-rose-100 text-rose-800' :
+          'bg-amber-100 text-amber-800';
+
+        return `
+          <tr class="hover:bg-stone-50">
+            <td class="py-3.5 px-3">
+              <div class="font-extrabold text-mstore-dark">${ord.id}</div>
+              <div class="text-[11px] text-stone-400">${ord.date}</div>
+            </td>
+            <td class="py-3.5 px-3">
+              <div class="font-bold text-stone-800">${ord.customerName}</div>
+              <div class="text-[11px] text-stone-500">${ord.city} • ${ord.phone}</div>
+            </td>
+            <td class="py-3.5 px-3 max-w-xs">
+              ${ord.items.map(it => `
+                <div class="text-xs">
+                  <strong>${it.qty}x</strong> ${it.name} <span class="text-[10px] text-stone-500">(${it.variant})</span>
+                  ${it.note ? `<span class="block text-[10px] text-mstore-gold font-semibold">Custom Note: "${it.note}"</span>` : ''}
+                </div>
+              `).join('')}
+            </td>
+            <td class="py-3.5 px-3 font-extrabold text-mstore-dark">Rs. ${ord.total.toLocaleString()}</td>
+            <td class="py-3.5 px-3 text-xs">
+              <div>${ord.paymentMethod}</div>
+              <span class="text-[10px] font-bold ${ord.cashStatus === 'Cash Collected' ? 'text-emerald-600' : 'text-amber-600'}">${ord.cashStatus}</span>
+            </td>
+            <td class="py-3.5 px-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${badgeClass}">${ord.status}</span>
+              <div class="text-[10px] text-stone-400 mt-0.5">${ord.courier}</div>
+            </td>
+            <td class="py-3.5 px-3 text-right">
+              <button onclick="openHostOrderModal('${ord.id}')" class="px-3 py-1.5 rounded-xl bg-mstore-dark text-white hover:bg-mstore-gold hover:text-mstore-dark text-xs font-bold transition-colors">
+                Order Details
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openHostOrderModal(orderId) {
+      const ord = orders.find(o => o.id === orderId);
+      if (!ord) return;
+
+      document.getElementById('hom-title').textContent = `Order #${ord.id}`;
+      document.getElementById('hom-content').innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-stone-50 border border-stone-200">
+          <div>
+            <div class="text-[11px] uppercase font-bold text-stone-400">Customer & Shipping</div>
+            <div class="font-bold text-sm mt-0.5">${ord.customerName}</div>
+            <div>Phone: ${ord.phone}</div>
+            <div>City: <strong>${ord.city}</strong></div>
+            <div>Address: ${ord.address}</div>
+          </div>
+          <div>
+            <div class="text-[11px] uppercase font-bold text-stone-400">Payment & Cash Breakdown</div>
+            <div>Channel: <strong>${ord.paymentMethod}</strong></div>
+            <div>Cash Status: <strong>${ord.cashStatus}</strong></div>
+            <div>Subtotal: Rs. ${ord.subtotal.toLocaleString()}</div>
+            <div class="text-sm font-extrabold text-emerald-700 mt-1">Total: Rs. ${ord.total.toLocaleString()}</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="font-bold mb-2">Itemized Products & Customer Customizations:</div>
+          <div class="space-y-2">
+            ${ord.items.map(it => `
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200 flex justify-between items-center">
+                <div>
+                  <div class="font-bold">${it.qty}x ${it.name}</div>
+                  <div class="text-xs text-stone-600">Chosen Option: <strong>${it.variant}</strong></div>
+                  ${it.note ? `<div class="text-xs text-mstore-gold font-bold mt-0.5">Custom Note: "${it.note}"</div>` : ''}
+                </div>
+                <div class="font-extrabold">Rs. ${(it.price * it.qty).toLocaleString()}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <form onsubmit="updateHostOrderFulfillment(event, '${ord.id}')" class="p-4 rounded-2xl bg-mstore-ivory border border-mstore-gold/40 space-y-3">
+          <div class="font-extrabold text-mstore-dark">Update Order Status, Cash Collection & Courier:</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold mb-1">Fulfillment Status</label>
+              <select id="hom-status" class="w-full px-3 py-2 rounded-xl bg-white border border-stone-300 text-xs font-bold">
+                <option value="Pending" ${ord.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option value="Processing" ${ord.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                <option value="Dispatched" ${ord.status === 'Dispatched' ? 'selected' : ''}>Dispatched</option>
+                <option value="Delivered" ${ord.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                <option value="Cancelled" ${ord.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold mb-1">Cash / COD Ledger Status</label>
+              <select id="hom-cash" class="w-full px-3 py-2 rounded-xl bg-white border border-stone-300 text-xs font-bold">
+                <option value="Pending COD" ${ord.cashStatus === 'Pending COD' ? 'selected' : ''}>Pending COD</option>
+                <option value="Cash Collected" ${ord.cashStatus === 'Cash Collected' ? 'selected' : ''}>Cash Collected</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold mb-1">Pakistani Courier Partner</label>
+              <select id="hom-courier" class="w-full px-3 py-2 rounded-xl bg-white border border-stone-300 text-xs font-bold">
+                <option value="Pending Assignment" ${ord.courier === 'Pending Assignment' ? 'selected' : ''}>Pending Assignment</option>
+                <option value="TCS Express" ${ord.courier === 'TCS Express' ? 'selected' : ''}>TCS Express</option>
+                <option value="Leopards Courier" ${ord.courier === 'Leopards Courier' ? 'selected' : ''}>Leopards Courier</option>
+                <option value="M&P Logistics" ${ord.courier === 'M&P Logistics' ? 'selected' : ''}>M&P Logistics</option>
+                <option value="PostEx COD" ${ord.courier === 'PostEx COD' ? 'selected' : ''}>PostEx COD</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold mb-1">Courier Tracking Number</label>
+              <input type="text" id="hom-track" value="${ord.trackingNo}" class="w-full px-3 py-2 rounded-xl bg-white border border-stone-300 text-xs font-bold" />
+            </div>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-xl gold-gradient text-mstore-dark font-extrabold text-xs shadow">
+            Save Order & Cash Update
+          </button>
+        </form>
+      `;
+
+      document.getElementById('host-order-modal').classList.remove('hidden');
+    }
+
+    function closeHostOrderModal() {
+      document.getElementById('host-order-modal').classList.add('hidden');
+    }
+
+    function updateHostOrderFulfillment(event, orderId) {
+      event.preventDefault();
+      const ord = orders.find(o => o.id === orderId);
+      if (!ord) return;
+
+      ord.status = document.getElementById('hom-status').value;
+      ord.cashStatus = document.getElementById('hom-cash').value;
+      ord.courier = document.getElementById('hom-courier').value;
+      ord.trackingNo = document.getElementById('hom-track').value.trim() || 'Assigned';
+
+      if (ord.status === 'Delivered') {
+        ord.cashStatus = 'Cash Collected';
+      }
+
+      persistState();
+      renderAllViews();
+      closeHostOrderModal();
+      showToast(`Order #${orderId} updated (${ord.status} • ${ord.cashStatus})!`);
+    }
+
+    // Host Tab 3: Cash & COD Financial Ledger
+    function markOrderCashCollected(orderId) {
+      const ord = orders.find(o => o.id === orderId);
+      if (!ord) return;
+      ord.cashStatus = 'Cash Collected';
+      persistState();
+      renderAllViews();
+      showToast(`Rs. ${ord.total.toLocaleString()} marked as Cash Collected for #${orderId}!`);
+    }
+
+    function renderHostCashLedger() {
+      const tbody = document.getElementById('host-cash-tbody');
+      tbody.innerHTML = orders.map(ord => {
+        const cogs = ord.totalCost || Math.round(ord.total * 0.55);
+        const profit = ord.status === 'Cancelled' ? 0 : (ord.total - cogs);
+        const isCollected = ord.cashStatus === 'Cash Collected';
+
+        return `
+          <tr class="hover:bg-stone-50">
+            <td class="py-3.5 px-3">
+              <div class="font-extrabold text-mstore-dark">${ord.id}</div>
+              <div class="text-[11px] text-stone-400">${ord.date}</div>
+            </td>
+            <td class="py-3.5 px-3 font-semibold">${ord.customerName} (${ord.city})</td>
+            <td class="py-3.5 px-3 text-xs">${ord.paymentMethod}</td>
+            <td class="py-3.5 px-3 font-bold">Rs. ${ord.total.toLocaleString()}</td>
+            <td class="py-3.5 px-3 text-stone-500">Rs. ${cogs.toLocaleString()}</td>
+            <td class="py-3.5 px-3 font-extrabold text-emerald-700">Rs. ${profit.toLocaleString()}</td>
+            <td class="py-3.5 px-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${isCollected ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                ${ord.cashStatus}
+              </span>
+            </td>
+            <td class="py-3.5 px-3 text-right">
+              ${!isCollected && ord.status !== 'Cancelled'
+                ? `<button onclick="markOrderCashCollected('${ord.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">Collect Cash</button>`
+                : `<span class="text-xs text-stone-400 font-semibold">Settled</span>`
+              }
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Host Tab 4: Supply Chain & Restock
+    function renderHostSupplyChain() {
+      const tbody = document.getElementById('host-supply-tbody');
+      const auditBox = document.getElementById('supply-audit-list');
+
+      tbody.innerHTML = products.map(p => {
+        const marginPct = p.price > 0 ? Math.round(((p.price - p.costPrice) / p.price) * 100) : 0;
+        const low = p.stock <= 8;
+
+        return `
+          <tr class="hover:bg-stone-50">
+            <td class="py-3.5 px-3">
+              <div class="font-bold text-mstore-dark">${p.name}</div>
+              <div class="text-[11px] text-stone-400">${p.sku} • ${p.category}</div>
+            </td>
+            <td class="py-3.5 px-3 text-xs font-semibold text-stone-700">${p.supplier || 'M Store Central Hub'}</td>
+            <td class="py-3.5 px-3 text-xs">
+              Cost: <strong>Rs. ${p.costPrice.toLocaleString()}</strong><br/>
+              Retail: <strong class="text-emerald-700">Rs. ${p.price.toLocaleString()}</strong>
+            </td>
+            <td class="py-3.5 px-3">
+              <span class="px-2.5 py-1 rounded-lg bg-purple-100 text-purple-800 font-extrabold text-xs">${marginPct}%</span>
+            </td>
+            <td class="py-3.5 px-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${low ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                ${p.stock} Units ${low ? '(Low Stock)' : ''}
+              </span>
+            </td>
+            <td class="py-3.5 px-3 text-right">
+              <button onclick="issueSupplyRestock('${p.id}', 25)" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors">
+                +25 PO Restock
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      auditBox.innerHTML = supplyLog.map(entry => `
+        <div class="p-2.5 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-3">
+          <span class="text-stone-700 font-medium">${entry.text}</span>
+          <span class="text-[10px] text-stone-400 shrink-0">${entry.time}</span>
+        </div>
+      `).join('');
+    }
+
+    function issueSupplyRestock(prodId, qty) {
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+      prod.stock += qty;
+      const now = new Date().toLocaleString('en-PK', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+      supplyLog.unshift({
+        time: now,
+        type: 'RESTOCK',
+        text: `PO Fulfilled: +${qty} units added to "${prod.name}" (Updated Stock: ${prod.stock}).`
+      });
+      persistState();
+      renderAllViews();
+      showToast(`Restocked +${qty} units of ${prod.name}!`);
+    }
+
+    window.addEventListener('DOMContentLoaded', initMStore);
+  </script>
+</body>
+</html>
